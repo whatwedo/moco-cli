@@ -29,6 +29,29 @@ archives:
         formats:
           - zip
 
+homebrew_casks:
+  - name: moco
+    binaries:
+      - moco
+    repository:
+      owner: whatwedo
+      name: homebrew-moco
+      branch: main
+      token: "{{ .Env.TAP_GITHUB_TOKEN }}"
+    # Skip publishing the cask when no tap token is configured, so releases
+    # still succeed before the TAP_GITHUB_TOKEN secret is set up.
+    skip_upload: '{{ if .Env.TAP_GITHUB_TOKEN }}false{{ else }}true{{ end }}'
+    homepage: "https://github.com/whatwedo/moco-cli"
+    description: "Command-line client for the MOCO API v1"
+    # The binaries are not code-signed; drop the macOS quarantine attribute so
+    # Gatekeeper does not block the freshly installed binary.
+    hooks:
+      post:
+        install: |
+          if OS.mac?
+            system_command "/usr/bin/xattr", args: ["-dr", "com.apple.quarantine", "#{staged_path}/moco"]
+          end
+
 checksum:
   name_template: "checksums.txt"
 

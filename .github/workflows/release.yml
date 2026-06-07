@@ -24,3 +24,7 @@ jobs:
           args: release --clean
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          # PAT with contents:write on whatwedo/homebrew-moco, used to publish the
+          # Homebrew cask. If the secret is unset the cask step is skipped (see
+          # skip_upload in .goreleaser.yaml) so the release still succeeds.
+          TAP_GITHUB_TOKEN: ${{ secrets.TAP_GITHUB_TOKEN }}
