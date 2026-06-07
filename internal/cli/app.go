@@ -37,11 +37,12 @@ func NewRootCmd(version string) (*cobra.Command, *App) {
 	root := &cobra.Command{
 		Use:           "moco",
 		Short:         "Command-line client for the MOCO API",
-		Long:          "moco is a command-line client for the MOCO API v1 (https://www.mocoapp.com).",
+		Long:          "moco-cli is a command-line client for the MOCO API v1 (https://www.mocoapp.com).",
 		Version:       version,
 		SilenceUsage:  true,
 		SilenceErrors: true,
 	}
+	root.SetVersionTemplate("moco-cli version {{.Version}}\n")
 	root.SetFlagErrorFunc(func(_ *cobra.Command, err error) error {
 		return &UsageError{Err: err}
 	})
