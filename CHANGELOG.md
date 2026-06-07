@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.1.0] - 2026-06-07
+
 ### Added
 
 - Initial release: a command-line client covering all MOCO API v1 endpoints.
@@ -16,3 +18,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   environment variables.
 - JSON output (`--output json|raw`), suitable for piping into `jq`.
 - German command help texts.
+
+[Unreleased]: https://github.com/whatwedo/moco-cli/compare/v0.1.0...HEAD
+[0.1.0]: https://github.com/whatwedo/moco-cli/releases/tag/v0.1.0
