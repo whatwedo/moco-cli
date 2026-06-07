@@ -11,7 +11,7 @@ Command help texts are in German; the codebase itself is English.
 ### Homebrew (macOS/Linux)
 
 ```sh
-brew install whatwedo/moco/moco
+brew install whatwedo/moco
 ```
 
 ### Go
