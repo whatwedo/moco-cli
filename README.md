@@ -1,6 +1,6 @@
 # moco-cli
 
-A command-line client for the [MOCO API v1](https://docs.mocoapp.com/api/docs/v1.yaml).
+A command-line client for the [MOCO API v1](https://everii-group.github.io/mocoapp-api-docs/).
 
 `moco-cli` covers **all** MOCO API endpoints. The commands are generated directly
 from the official OpenAPI specification, so the CLI stays in sync with the API.
