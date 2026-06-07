@@ -7,6 +7,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.1.1] - 2026-06-07
+
+### Added
+
+- Homebrew installation via the `whatwedo/homebrew-moco` tap
+  (`brew install whatwedo/moco`).
+
+### Changed
+
+- `--version` and help now show the program as `moco-cli`.
+- Binaries installed with `go install` report the module version via build info.
+
 ## [0.1.0] - 2026-06-07
 
 ### Added
@@ -19,5 +31,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - JSON output (`--output json|raw`), suitable for piping into `jq`.
 - German command help texts.
 
-[Unreleased]: https://github.com/whatwedo/moco-cli/compare/v0.1.0...HEAD
+[Unreleased]: https://github.com/whatwedo/moco-cli/compare/v0.1.1...HEAD
+[0.1.1]: https://github.com/whatwedo/moco-cli/compare/v0.1.0...v0.1.1
 [0.1.0]: https://github.com/whatwedo/moco-cli/releases/tag/v0.1.0
