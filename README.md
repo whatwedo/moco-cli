@@ -8,9 +8,19 @@ Command help texts are in German; the codebase itself is English.
 
 ## Installation
 
+### Homebrew (macOS/Linux)
+
+```sh
+brew install whatwedo/moco/moco
+```
+
+### Go
+
 ```sh
 go install github.com/whatwedo/moco-cli/cmd/moco@latest
 ```
+
+### Binaries
 
 Pre-built binaries for Linux, macOS and Windows are attached to each
 [GitHub release](https://github.com/whatwedo/moco-cli/releases).
