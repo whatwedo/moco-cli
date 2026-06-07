@@ -14,9 +14,6 @@ Command help texts are in German; the codebase itself is English.
 brew install whatwedo/moco/moco
 ```
 
-(`moco` is distributed as a Homebrew cask, so the fully qualified
-`<owner>/<tap>/<cask>` form is required.)
-
 ### Go
 
 ```sh
