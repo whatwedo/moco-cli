@@ -16,7 +16,7 @@ import (
 func newPurchaseDraftsCmd(app *cli.App) *cobra.Command {
 	cmd := &cobra.Command{
 		Use:   "purchase-drafts",
-		Short: "Ausgabenentwürfe verwalten",
+		Short: "Ausgaben-Entwürfe verwalten",
 	}
 	cmd.AddCommand(
 		newPurchaseDraftsCreateCmd(app),
@@ -33,7 +33,7 @@ func newPurchaseDraftsCreateCmd(app *cli.App) *cobra.Command {
 	var data string
 	cmd := &cobra.Command{
 		Use:   "create",
-		Short: "Ausgabenentwurf erstellen",
+		Short: "Ausgaben-Entwurf erstellen",
 		Args:  cobra.ExactArgs(0),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			path := "/purchases/drafts"
@@ -64,7 +64,7 @@ func newPurchaseDraftsCreateCmd(app *cli.App) *cobra.Command {
 func newPurchaseDraftsDeleteCmd(app *cli.App) *cobra.Command {
 	cmd := &cobra.Command{
 		Use:   "delete <id>",
-		Short: "Ausgabenentwurf löschen",
+		Short: "Ausgaben-Entwurf löschen",
 		Args:  cobra.ExactArgs(1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			path := "/purchases/drafts/{id}"
@@ -81,7 +81,7 @@ func newPurchaseDraftsDeleteCmd(app *cli.App) *cobra.Command {
 func newPurchaseDraftsGetCmd(app *cli.App) *cobra.Command {
 	cmd := &cobra.Command{
 		Use:   "get <id>",
-		Short: "Ausgabenentwurf abrufen",
+		Short: "Ausgaben-Entwurf abrufen",
 		Args:  cobra.ExactArgs(1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			path := "/purchases/drafts/{id}"
@@ -101,7 +101,7 @@ func newPurchaseDraftsListCmd(app *cli.App) *cobra.Command {
 	var q2 string
 	cmd := &cobra.Command{
 		Use:   "list",
-		Short: "Ausgabenentwürfe auflisten",
+		Short: "Ausgaben-Entwürfe auflisten",
 		Args:  cobra.ExactArgs(0),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			path := "/purchases/drafts"

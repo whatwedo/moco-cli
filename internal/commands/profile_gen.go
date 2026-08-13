@@ -3,6 +3,9 @@
 package commands
 
 import (
+	"fmt"
+	"net/url"
+
 	"github.com/spf13/cobra"
 
 	"github.com/whatwedo/moco-cli/internal/cli"
@@ -16,6 +19,7 @@ func newProfileCmd(app *cli.App) *cobra.Command {
 	}
 	cmd.AddCommand(
 		newProfileGetCmd(app),
+		newProfilePerformanceReportGetCmd(app),
 	)
 	return cmd
 }
@@ -33,5 +37,29 @@ func newProfileGetCmd(app *cli.App) *cobra.Command {
 			})
 		},
 	}
+	return cmd
+}
+
+func newProfilePerformanceReportGetCmd(app *cli.App) *cobra.Command {
+	var q0 int
+	cmd := &cobra.Command{
+		Use:   "performance-report-get",
+		Short: "Eigenen Leistungsbericht abrufen",
+		Args:  cobra.ExactArgs(0),
+		RunE: func(cmd *cobra.Command, args []string) error {
+			path := "/profile/performance_report"
+			q := url.Values{}
+			if cmd.Flags().Changed("year") {
+				q.Set("year", fmt.Sprint(q0))
+			}
+			return app.Execute(cmd.Context(), client.Request{
+				Method: "GET",
+				Path:   path,
+				Query:  q,
+			})
+		},
+	}
+	f := cmd.Flags()
+	f.IntVar(&q0, "year", 0, "Report year. Must be between 2000 and 2100.")
 	return cmd
 }

@@ -16,7 +16,7 @@ import (
 func newAccountWebHooksCmd(app *cli.App) *cobra.Command {
 	cmd := &cobra.Command{
 		Use:   "account-web-hooks",
-		Short: "Automatisierungen verwalten",
+		Short: "WebHooks verwalten",
 	}
 	cmd.AddCommand(
 		newAccountWebHooksCreateCmd(app),
@@ -38,7 +38,7 @@ func newAccountWebHooksCreateCmd(app *cli.App) *cobra.Command {
 	var data string
 	cmd := &cobra.Command{
 		Use:   "create",
-		Short: "Automatisierung erstellen",
+		Short: "WebHook erstellen",
 		Args:  cobra.ExactArgs(0),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			path := "/account/web_hooks"
@@ -69,7 +69,7 @@ func newAccountWebHooksCreateCmd(app *cli.App) *cobra.Command {
 	f := cmd.Flags()
 	f.StringVar(&v0, "event", "", "")
 	f.StringVar(&v1, "hook", "", "")
-	f.StringVar(&v2, "target", "", "")
+	f.StringVar(&v2, "target", "", "Resource type a webhook watches for events.")
 	f.StringVar(&data, "data", "", "request body as JSON object")
 	return cmd
 }
@@ -77,7 +77,7 @@ func newAccountWebHooksCreateCmd(app *cli.App) *cobra.Command {
 func newAccountWebHooksDeleteCmd(app *cli.App) *cobra.Command {
 	cmd := &cobra.Command{
 		Use:   "delete <id>",
-		Short: "Automatisierung löschen",
+		Short: "WebHook löschen",
 		Args:  cobra.ExactArgs(1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			path := "/account/web_hooks/{id}"
@@ -94,7 +94,7 @@ func newAccountWebHooksDeleteCmd(app *cli.App) *cobra.Command {
 func newAccountWebHooksDisableCmd(app *cli.App) *cobra.Command {
 	cmd := &cobra.Command{
 		Use:   "disable <id>",
-		Short: "Automatisierung deaktivieren",
+		Short: "WebHook deaktivieren",
 		Args:  cobra.ExactArgs(1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			path := "/account/web_hooks/{id}/disable"
@@ -111,7 +111,7 @@ func newAccountWebHooksDisableCmd(app *cli.App) *cobra.Command {
 func newAccountWebHooksEnableCmd(app *cli.App) *cobra.Command {
 	cmd := &cobra.Command{
 		Use:   "enable <id>",
-		Short: "Automatisierung aktivieren",
+		Short: "WebHook aktivieren",
 		Args:  cobra.ExactArgs(1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			path := "/account/web_hooks/{id}/enable"
@@ -128,7 +128,7 @@ func newAccountWebHooksEnableCmd(app *cli.App) *cobra.Command {
 func newAccountWebHooksGetCmd(app *cli.App) *cobra.Command {
 	cmd := &cobra.Command{
 		Use:   "get <id>",
-		Short: "Automatisierung abrufen",
+		Short: "WebHook abrufen",
 		Args:  cobra.ExactArgs(1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			path := "/account/web_hooks/{id}"
@@ -149,7 +149,7 @@ func newAccountWebHooksListCmd(app *cli.App) *cobra.Command {
 	var q3 string
 	cmd := &cobra.Command{
 		Use:   "list",
-		Short: "Automatisierungen auflisten",
+		Short: "WebHooks auflisten",
 		Args:  cobra.ExactArgs(0),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			path := "/account/web_hooks"
@@ -186,7 +186,7 @@ func newAccountWebHooksPatchCmd(app *cli.App) *cobra.Command {
 	var data string
 	cmd := &cobra.Command{
 		Use:   "patch <id>",
-		Short: "Automatisierung teilweise aktualisieren",
+		Short: "WebHook teilweise aktualisieren",
 		Args:  cobra.ExactArgs(1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			path := "/account/web_hooks/{id}"
@@ -220,7 +220,7 @@ func newAccountWebHooksUpdateCmd(app *cli.App) *cobra.Command {
 	var data string
 	cmd := &cobra.Command{
 		Use:   "update <id>",
-		Short: "Automatisierung aktualisieren",
+		Short: "WebHook aktualisieren",
 		Args:  cobra.ExactArgs(1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			path := "/account/web_hooks/{id}"

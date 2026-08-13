@@ -16,7 +16,7 @@ import (
 func newVatCodeSalesCmd(app *cli.App) *cobra.Command {
 	cmd := &cobra.Command{
 		Use:   "vat-code-sales",
-		Short: "Steuercodes verwalten",
+		Short: "Steuersätze verwalten",
 	}
 	cmd.AddCommand(
 		newVatCodeSalesGetCmd(app),
@@ -28,7 +28,7 @@ func newVatCodeSalesCmd(app *cli.App) *cobra.Command {
 func newVatCodeSalesGetCmd(app *cli.App) *cobra.Command {
 	cmd := &cobra.Command{
 		Use:   "get <id>",
-		Short: "Steuercode abrufen",
+		Short: "Steuersatz abrufen",
 		Args:  cobra.ExactArgs(1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			path := "/vat_code_sales/{id}"
@@ -52,7 +52,7 @@ func newVatCodeSalesListCmd(app *cli.App) *cobra.Command {
 	var q6 string
 	cmd := &cobra.Command{
 		Use:   "list",
-		Short: "Steuercodes auflisten",
+		Short: "Steuersätze auflisten",
 		Args:  cobra.ExactArgs(0),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			path := "/vat_code_sales"

@@ -243,15 +243,18 @@ func newActivitiesListCmd(app *cli.App) *cobra.Command {
 	var q2 int
 	var q3 string
 	var q4 string
-	var q5 int
+	var q5 string
 	var q6 int
 	var q7 int
-	var q8 string
-	var q9 int
+	var q8 int
+	var q9 string
 	var q10 string
 	var q11 string
-	var q12 string
-	var q13 int
+	var q12 int
+	var q13 string
+	var q14 string
+	var q15 string
+	var q16 int
 	cmd := &cobra.Command{
 		Use:   "list",
 		Short: "Zeiteinträge auflisten",
@@ -268,38 +271,47 @@ func newActivitiesListCmd(app *cli.App) *cobra.Command {
 			if cmd.Flags().Changed("company-id") {
 				q.Set("company_id", fmt.Sprint(q2))
 			}
+			if cmd.Flags().Changed("deal-id") {
+				q.Set("deal_id", fmt.Sprint(q3))
+			}
 			if cmd.Flags().Changed("from") {
-				q.Set("from", fmt.Sprint(q3))
+				q.Set("from", fmt.Sprint(q4))
 			}
 			if cmd.Flags().Changed("ids") {
-				q.Set("ids", fmt.Sprint(q4))
+				q.Set("ids", fmt.Sprint(q5))
 			}
 			if cmd.Flags().Changed("page") {
-				q.Set("page", fmt.Sprint(q5))
+				q.Set("page", fmt.Sprint(q6))
 			}
 			if cmd.Flags().Changed("per-page") {
-				q.Set("per_page", fmt.Sprint(q6))
+				q.Set("per_page", fmt.Sprint(q7))
 			}
 			if cmd.Flags().Changed("project-id") {
-				q.Set("project_id", fmt.Sprint(q7))
+				q.Set("project_id", fmt.Sprint(q8))
+			}
+			if cmd.Flags().Changed("remote-id") {
+				q.Set("remote_id", fmt.Sprint(q9))
 			}
 			if cmd.Flags().Changed("sort-by") {
-				q.Set("sort_by", fmt.Sprint(q8))
+				q.Set("sort_by", fmt.Sprint(q10))
+			}
+			if cmd.Flags().Changed("tag") {
+				q.Set("tag", fmt.Sprint(q11))
 			}
 			if cmd.Flags().Changed("task-id") {
-				q.Set("task_id", fmt.Sprint(q9))
+				q.Set("task_id", fmt.Sprint(q12))
 			}
 			if cmd.Flags().Changed("term") {
-				q.Set("term", fmt.Sprint(q10))
+				q.Set("term", fmt.Sprint(q13))
 			}
 			if cmd.Flags().Changed("to") {
-				q.Set("to", fmt.Sprint(q11))
+				q.Set("to", fmt.Sprint(q14))
 			}
 			if cmd.Flags().Changed("updated-after") {
-				q.Set("updated_after", fmt.Sprint(q12))
+				q.Set("updated_after", fmt.Sprint(q15))
 			}
 			if cmd.Flags().Changed("user-id") {
-				q.Set("user_id", fmt.Sprint(q13))
+				q.Set("user_id", fmt.Sprint(q16))
 			}
 			return app.Execute(cmd.Context(), client.Request{
 				Method: "GET",
@@ -312,17 +324,20 @@ func newActivitiesListCmd(app *cli.App) *cobra.Command {
 	f.BoolVar(&q0, "billable", false, "")
 	f.BoolVar(&q1, "billed", false, "")
 	f.IntVar(&q2, "company-id", 0, "")
-	f.StringVar(&q3, "from", "", "Start date filter. Format: YYYY-MM-DD (e.g. `2026-01-01`).")
-	f.StringVar(&q4, "ids", "", "Comma-separated IDs.")
-	f.IntVar(&q5, "page", 0, "Page number, starting at 1.")
-	f.IntVar(&q6, "per-page", 0, "Page size.")
-	f.IntVar(&q7, "project-id", 0, "")
-	f.StringVar(&q8, "sort-by", "", "Field and optional direction, e.g. `title desc`.")
-	f.IntVar(&q9, "task-id", 0, "")
-	f.StringVar(&q10, "term", "", "")
-	f.StringVar(&q11, "to", "", "End date filter. Format: YYYY-MM-DD (e.g. `2026-01-31`).")
-	f.StringVar(&q12, "updated-after", "", "ISO 8601 UTC timestamp (e.g. `2026-01-31T14:30:00Z`).")
-	f.IntVar(&q13, "user-id", 0, "")
+	f.StringVar(&q3, "deal-id", "", "Single ID or comma-separated list.")
+	f.StringVar(&q4, "from", "", "Start date filter. Format: YYYY-MM-DD (e.g. `2026-01-01`).")
+	f.StringVar(&q5, "ids", "", "Comma-separated IDs.")
+	f.IntVar(&q6, "page", 0, "Page number, starting at 1.")
+	f.IntVar(&q7, "per-page", 0, "Page size.")
+	f.IntVar(&q8, "project-id", 0, "")
+	f.StringVar(&q9, "remote-id", "", "Single remote ID or comma-separated list of remote IDs.")
+	f.StringVar(&q10, "sort-by", "", "Field and optional direction, e.g. `title desc`.")
+	f.StringVar(&q11, "tag", "", "Single tag or comma-separated list of tags.")
+	f.IntVar(&q12, "task-id", 0, "")
+	f.StringVar(&q13, "term", "", "")
+	f.StringVar(&q14, "to", "", "End date filter. Format: YYYY-MM-DD (e.g. `2026-01-31`).")
+	f.StringVar(&q15, "updated-after", "", "ISO 8601 UTC timestamp (e.g. `2026-01-31T14:30:00Z`).")
+	f.IntVar(&q16, "user-id", 0, "")
 	return cmd
 }
 
@@ -423,7 +438,7 @@ func newActivitiesPatchCmd(app *cli.App) *cobra.Command {
 func newActivitiesStartTimerCmd(app *cli.App) *cobra.Command {
 	cmd := &cobra.Command{
 		Use:   "start-timer <id>",
-		Short: "Zeiterfassungs-Timer starten",
+		Short: "Stoppuhr starten",
 		Args:  cobra.ExactArgs(1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			path := "/activities/{id}/start_timer"
@@ -440,7 +455,7 @@ func newActivitiesStartTimerCmd(app *cli.App) *cobra.Command {
 func newActivitiesStopTimerCmd(app *cli.App) *cobra.Command {
 	cmd := &cobra.Command{
 		Use:   "stop-timer <id>",
-		Short: "Zeiterfassungs-Timer stoppen",
+		Short: "Stoppuhr stoppen",
 		Args:  cobra.ExactArgs(1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			path := "/activities/{id}/stop_timer"

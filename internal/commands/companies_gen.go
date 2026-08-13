@@ -50,17 +50,17 @@ func newCompaniesArchiveCmd(app *cli.App) *cobra.Command {
 
 func newCompaniesCreateCmd(app *cli.App) *cobra.Command {
 	var v0 string
-	var v1 string
+	var v1 bool
 	var v2 string
 	var v3 string
 	var v4 string
 	var v5 string
 	var v6 string
-	var v7 string
+	var v7 int
 	var v8 string
 	var v9 float64
 	var v10 int
-	var v11 string
+	var v11 int
 	var v12 int
 	var v13 string
 	var v14 string
@@ -193,17 +193,17 @@ func newCompaniesCreateCmd(app *cli.App) *cobra.Command {
 	}
 	f := cmd.Flags()
 	f.StringVar(&v0, "address", "", "")
-	f.StringVar(&v1, "alternative-correspondence-language", "", "")
+	f.BoolVar(&v1, "alternative-correspondence-language", false, "")
 	f.StringVar(&v2, "bank-bic", "", "")
 	f.StringVar(&v3, "bank-owner", "", "")
 	f.StringVar(&v4, "billing-email-cc", "", "")
 	f.StringVar(&v5, "billing-notes", "", "")
 	f.StringVar(&v6, "country-code", "", "")
-	f.StringVar(&v7, "credit-number", "", "")
+	f.IntVar(&v7, "credit-number", 0, "")
 	f.StringVar(&v8, "currency", "", "")
 	f.Float64Var(&v9, "customer-tax", 0, "Deprecated VAT shortcut for customer records.")
 	f.IntVar(&v10, "customer-vat-code-id", 0, "")
-	f.StringVar(&v11, "debit-number", "", "")
+	f.IntVar(&v11, "debit-number", 0, "")
 	f.IntVar(&v12, "default-invoice-due-days", 0, "")
 	f.StringVar(&v13, "default-payment-means", "", "")
 	f.StringVar(&v14, "email", "", "")
@@ -331,17 +331,17 @@ func newCompaniesListCmd(app *cli.App) *cobra.Command {
 
 func newCompaniesPatchCmd(app *cli.App) *cobra.Command {
 	var v0 string
-	var v1 string
+	var v1 bool
 	var v2 string
 	var v3 string
 	var v4 string
 	var v5 string
 	var v6 string
-	var v7 string
+	var v7 int
 	var v8 string
 	var v9 float64
 	var v10 int
-	var v11 string
+	var v11 int
 	var v12 int
 	var v13 string
 	var v14 string
@@ -475,17 +475,17 @@ func newCompaniesPatchCmd(app *cli.App) *cobra.Command {
 	}
 	f := cmd.Flags()
 	f.StringVar(&v0, "address", "", "")
-	f.StringVar(&v1, "alternative-correspondence-language", "", "")
+	f.BoolVar(&v1, "alternative-correspondence-language", false, "")
 	f.StringVar(&v2, "bank-bic", "", "")
 	f.StringVar(&v3, "bank-owner", "", "")
 	f.StringVar(&v4, "billing-email-cc", "", "")
 	f.StringVar(&v5, "billing-notes", "", "")
 	f.StringVar(&v6, "country-code", "", "")
-	f.StringVar(&v7, "credit-number", "", "")
+	f.IntVar(&v7, "credit-number", 0, "")
 	f.StringVar(&v8, "currency", "", "")
 	f.Float64Var(&v9, "customer-tax", 0, "Deprecated VAT shortcut for customer records.")
 	f.IntVar(&v10, "customer-vat-code-id", 0, "")
-	f.StringVar(&v11, "debit-number", "", "")
+	f.IntVar(&v11, "debit-number", 0, "")
 	f.IntVar(&v12, "default-invoice-due-days", 0, "")
 	f.StringVar(&v13, "default-payment-means", "", "")
 	f.StringVar(&v14, "email", "", "")
@@ -527,17 +527,17 @@ func newCompaniesUnarchiveCmd(app *cli.App) *cobra.Command {
 
 func newCompaniesUpdateCmd(app *cli.App) *cobra.Command {
 	var v0 string
-	var v1 string
+	var v1 bool
 	var v2 string
 	var v3 string
 	var v4 string
 	var v5 string
 	var v6 string
-	var v7 string
+	var v7 int
 	var v8 string
 	var v9 float64
 	var v10 int
-	var v11 string
+	var v11 int
 	var v12 int
 	var v13 string
 	var v14 string
@@ -671,17 +671,17 @@ func newCompaniesUpdateCmd(app *cli.App) *cobra.Command {
 	}
 	f := cmd.Flags()
 	f.StringVar(&v0, "address", "", "")
-	f.StringVar(&v1, "alternative-correspondence-language", "", "")
+	f.BoolVar(&v1, "alternative-correspondence-language", false, "")
 	f.StringVar(&v2, "bank-bic", "", "")
 	f.StringVar(&v3, "bank-owner", "", "")
 	f.StringVar(&v4, "billing-email-cc", "", "")
 	f.StringVar(&v5, "billing-notes", "", "")
 	f.StringVar(&v6, "country-code", "", "")
-	f.StringVar(&v7, "credit-number", "", "")
+	f.IntVar(&v7, "credit-number", 0, "")
 	f.StringVar(&v8, "currency", "", "")
 	f.Float64Var(&v9, "customer-tax", 0, "Deprecated VAT shortcut for customer records.")
 	f.IntVar(&v10, "customer-vat-code-id", 0, "")
-	f.StringVar(&v11, "debit-number", "", "")
+	f.IntVar(&v11, "debit-number", 0, "")
 	f.IntVar(&v12, "default-invoice-due-days", 0, "")
 	f.StringVar(&v13, "default-payment-means", "", "")
 	f.StringVar(&v14, "email", "", "")

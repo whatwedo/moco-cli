@@ -32,7 +32,7 @@ func newAccountCustomPropertiesCmd(app *cli.App) *cobra.Command {
 func newAccountCustomPropertiesCreateCmd(app *cli.App) *cobra.Command {
 	var v0 bool
 	var v1 string
-	var v2 string
+	var v2 int
 	var v3 string
 	var v4 string
 	var v5 bool
@@ -99,7 +99,7 @@ func newAccountCustomPropertiesCreateCmd(app *cli.App) *cobra.Command {
 	f := cmd.Flags()
 	f.BoolVar(&v0, "api-only", false, "")
 	f.StringVar(&v1, "entity", "", "")
-	f.StringVar(&v2, "id", "", "")
+	f.IntVar(&v2, "id", 0, "")
 	f.StringVar(&v3, "kind", "", "")
 	f.StringVar(&v4, "name", "", "")
 	f.BoolVar(&v5, "notification-enabled", false, "")
@@ -193,7 +193,7 @@ func newAccountCustomPropertiesListCmd(app *cli.App) *cobra.Command {
 func newAccountCustomPropertiesPatchCmd(app *cli.App) *cobra.Command {
 	var v0 bool
 	var v1 string
-	var v2 string
+	var v2 int
 	var v3 string
 	var v4 string
 	var v5 bool
@@ -261,7 +261,7 @@ func newAccountCustomPropertiesPatchCmd(app *cli.App) *cobra.Command {
 	f := cmd.Flags()
 	f.BoolVar(&v0, "api-only", false, "")
 	f.StringVar(&v1, "entity", "", "")
-	f.StringVar(&v2, "id", "", "")
+	f.IntVar(&v2, "id", 0, "")
 	f.StringVar(&v3, "kind", "", "")
 	f.StringVar(&v4, "name", "", "")
 	f.BoolVar(&v5, "notification-enabled", false, "")
@@ -277,7 +277,7 @@ func newAccountCustomPropertiesPatchCmd(app *cli.App) *cobra.Command {
 func newAccountCustomPropertiesUpdateCmd(app *cli.App) *cobra.Command {
 	var v0 bool
 	var v1 string
-	var v2 string
+	var v2 int
 	var v3 string
 	var v4 string
 	var v5 bool
@@ -345,7 +345,7 @@ func newAccountCustomPropertiesUpdateCmd(app *cli.App) *cobra.Command {
 	f := cmd.Flags()
 	f.BoolVar(&v0, "api-only", false, "")
 	f.StringVar(&v1, "entity", "", "")
-	f.StringVar(&v2, "id", "", "")
+	f.IntVar(&v2, "id", 0, "")
 	f.StringVar(&v3, "kind", "", "")
 	f.StringVar(&v4, "name", "", "")
 	f.BoolVar(&v5, "notification-enabled", false, "")

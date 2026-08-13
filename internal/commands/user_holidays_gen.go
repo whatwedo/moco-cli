@@ -16,7 +16,7 @@ import (
 func newUserHolidaysCmd(app *cli.App) *cobra.Command {
 	cmd := &cobra.Command{
 		Use:   "user-holidays",
-		Short: "Urlaubsansprüche verwalten",
+		Short: "Urlaubskonten verwalten",
 	}
 	cmd.AddCommand(
 		newUserHolidaysCreateCmd(app),
@@ -39,7 +39,7 @@ func newUserHolidaysCreateCmd(app *cli.App) *cobra.Command {
 	var data string
 	cmd := &cobra.Command{
 		Use:   "create",
-		Short: "Urlaubsanspruch erstellen",
+		Short: "Urlaubskonto erstellen",
 		Args:  cobra.ExactArgs(0),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			path := "/users/holidays"
@@ -90,7 +90,7 @@ func newUserHolidaysCreateCmd(app *cli.App) *cobra.Command {
 func newUserHolidaysDeleteCmd(app *cli.App) *cobra.Command {
 	cmd := &cobra.Command{
 		Use:   "delete <id>",
-		Short: "Urlaubsanspruch löschen",
+		Short: "Urlaubskonto löschen",
 		Args:  cobra.ExactArgs(1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			path := "/users/holidays/{id}"
@@ -107,7 +107,7 @@ func newUserHolidaysDeleteCmd(app *cli.App) *cobra.Command {
 func newUserHolidaysGetCmd(app *cli.App) *cobra.Command {
 	cmd := &cobra.Command{
 		Use:   "get <id>",
-		Short: "Urlaubsanspruch abrufen",
+		Short: "Urlaubskonto abrufen",
 		Args:  cobra.ExactArgs(1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			path := "/users/holidays/{id}"
@@ -130,7 +130,7 @@ func newUserHolidaysListCmd(app *cli.App) *cobra.Command {
 	var q5 int
 	cmd := &cobra.Command{
 		Use:   "list",
-		Short: "Urlaubsansprüche auflisten",
+		Short: "Urlaubskonten auflisten",
 		Args:  cobra.ExactArgs(0),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			path := "/users/holidays"
@@ -180,7 +180,7 @@ func newUserHolidaysPatchCmd(app *cli.App) *cobra.Command {
 	var data string
 	cmd := &cobra.Command{
 		Use:   "patch <id>",
-		Short: "Urlaubsanspruch teilweise aktualisieren",
+		Short: "Urlaubskonto teilweise aktualisieren",
 		Args:  cobra.ExactArgs(1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			path := "/users/holidays/{id}"
@@ -239,7 +239,7 @@ func newUserHolidaysUpdateCmd(app *cli.App) *cobra.Command {
 	var data string
 	cmd := &cobra.Command{
 		Use:   "update <id>",
-		Short: "Urlaubsanspruch aktualisieren",
+		Short: "Urlaubskonto aktualisieren",
 		Args:  cobra.ExactArgs(1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			path := "/users/holidays/{id}"

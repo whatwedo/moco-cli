@@ -71,13 +71,14 @@ func newExpensesCreateCmd(app *cli.App) *cobra.Command {
 	var v6 float64
 	var v7 bool
 	var v8 float64
-	var v9 string
+	var v9 int
 	var v10 string
 	var v11 string
 	var v12 string
-	var v13 float64
+	var v13 string
 	var v14 float64
-	var v15 int
+	var v15 float64
+	var v16 int
 	var data string
 	cmd := &cobra.Command{
 		Use:   "create <project-id>",
@@ -117,26 +118,29 @@ func newExpensesCreateCmd(app *cli.App) *cobra.Command {
 			if cmd.Flags().Changed("quantity") {
 				body["quantity"] = v8
 			}
+			if cmd.Flags().Changed("revenue-category-id") {
+				body["revenue_category_id"] = v9
+			}
 			if cmd.Flags().Changed("service-period-from") {
-				body["service_period_from"] = v9
+				body["service_period_from"] = v10
 			}
 			if cmd.Flags().Changed("service-period-to") {
-				body["service_period_to"] = v10
+				body["service_period_to"] = v11
 			}
 			if cmd.Flags().Changed("title") {
-				body["title"] = v11
+				body["title"] = v12
 			}
 			if cmd.Flags().Changed("unit") {
-				body["unit"] = v12
+				body["unit"] = v13
 			}
 			if cmd.Flags().Changed("unit-cost") {
-				body["unit_cost"] = v13
+				body["unit_cost"] = v14
 			}
 			if cmd.Flags().Changed("unit-price") {
-				body["unit_price"] = v14
+				body["unit_price"] = v15
 			}
 			if cmd.Flags().Changed("user-id") {
-				body["user_id"] = v15
+				body["user_id"] = v16
 			}
 			raw, err := cli.EncodeBody(body)
 			if err != nil {
@@ -159,13 +163,14 @@ func newExpensesCreateCmd(app *cli.App) *cobra.Command {
 	f.Float64Var(&v6, "price", 0, "Deprecated total selling price alias.")
 	f.BoolVar(&v7, "purchase-assignment-locked", false, "Locks assignment to purchase items.")
 	f.Float64Var(&v8, "quantity", 0, "Quantity.")
-	f.StringVar(&v9, "service-period-from", "", "Start of service period.")
-	f.StringVar(&v10, "service-period-to", "", "End of service period.")
-	f.StringVar(&v11, "title", "", "Expense title.")
-	f.StringVar(&v12, "unit", "", "Unit label.")
-	f.Float64Var(&v13, "unit-cost", 0, "Unit internal cost.")
-	f.Float64Var(&v14, "unit-price", 0, "Unit selling price.")
-	f.IntVar(&v15, "user-id", 0, "Responsible user ID (must be active on create).")
+	f.IntVar(&v9, "revenue-category-id", 0, "Revenue category ID for billing assignment.")
+	f.StringVar(&v10, "service-period-from", "", "Start of service period.")
+	f.StringVar(&v11, "service-period-to", "", "End of service period.")
+	f.StringVar(&v12, "title", "", "Expense title.")
+	f.StringVar(&v13, "unit", "", "Unit label.")
+	f.Float64Var(&v14, "unit-cost", 0, "Unit internal cost.")
+	f.Float64Var(&v15, "unit-price", 0, "Unit selling price.")
+	f.IntVar(&v16, "user-id", 0, "Responsible user ID (must be active on create).")
 	f.StringVar(&data, "data", "", "request body as JSON object")
 	return cmd
 }
@@ -389,13 +394,14 @@ func newExpensesPatchCmd(app *cli.App) *cobra.Command {
 	var v6 float64
 	var v7 bool
 	var v8 float64
-	var v9 string
+	var v9 int
 	var v10 string
 	var v11 string
 	var v12 string
-	var v13 float64
+	var v13 string
 	var v14 float64
-	var v15 int
+	var v15 float64
+	var v16 int
 	var data string
 	cmd := &cobra.Command{
 		Use:   "patch <project-id> <id>",
@@ -436,26 +442,29 @@ func newExpensesPatchCmd(app *cli.App) *cobra.Command {
 			if cmd.Flags().Changed("quantity") {
 				body["quantity"] = v8
 			}
+			if cmd.Flags().Changed("revenue-category-id") {
+				body["revenue_category_id"] = v9
+			}
 			if cmd.Flags().Changed("service-period-from") {
-				body["service_period_from"] = v9
+				body["service_period_from"] = v10
 			}
 			if cmd.Flags().Changed("service-period-to") {
-				body["service_period_to"] = v10
+				body["service_period_to"] = v11
 			}
 			if cmd.Flags().Changed("title") {
-				body["title"] = v11
+				body["title"] = v12
 			}
 			if cmd.Flags().Changed("unit") {
-				body["unit"] = v12
+				body["unit"] = v13
 			}
 			if cmd.Flags().Changed("unit-cost") {
-				body["unit_cost"] = v13
+				body["unit_cost"] = v14
 			}
 			if cmd.Flags().Changed("unit-price") {
-				body["unit_price"] = v14
+				body["unit_price"] = v15
 			}
 			if cmd.Flags().Changed("user-id") {
-				body["user_id"] = v15
+				body["user_id"] = v16
 			}
 			raw, err := cli.EncodeBody(body)
 			if err != nil {
@@ -478,13 +487,14 @@ func newExpensesPatchCmd(app *cli.App) *cobra.Command {
 	f.Float64Var(&v6, "price", 0, "Deprecated total selling price alias.")
 	f.BoolVar(&v7, "purchase-assignment-locked", false, "Locks assignment to purchase items.")
 	f.Float64Var(&v8, "quantity", 0, "Quantity.")
-	f.StringVar(&v9, "service-period-from", "", "Start of service period.")
-	f.StringVar(&v10, "service-period-to", "", "End of service period.")
-	f.StringVar(&v11, "title", "", "Expense title.")
-	f.StringVar(&v12, "unit", "", "Unit label.")
-	f.Float64Var(&v13, "unit-cost", 0, "Unit internal cost.")
-	f.Float64Var(&v14, "unit-price", 0, "Unit selling price.")
-	f.IntVar(&v15, "user-id", 0, "Responsible user ID (must be active on create).")
+	f.IntVar(&v9, "revenue-category-id", 0, "Revenue category ID for billing assignment.")
+	f.StringVar(&v10, "service-period-from", "", "Start of service period.")
+	f.StringVar(&v11, "service-period-to", "", "End of service period.")
+	f.StringVar(&v12, "title", "", "Expense title.")
+	f.StringVar(&v13, "unit", "", "Unit label.")
+	f.Float64Var(&v14, "unit-cost", 0, "Unit internal cost.")
+	f.Float64Var(&v15, "unit-price", 0, "Unit selling price.")
+	f.IntVar(&v16, "user-id", 0, "Responsible user ID (must be active on create).")
 	f.StringVar(&data, "data", "", "request body as JSON object")
 	return cmd
 }
@@ -499,13 +509,14 @@ func newExpensesUpdateCmd(app *cli.App) *cobra.Command {
 	var v6 float64
 	var v7 bool
 	var v8 float64
-	var v9 string
+	var v9 int
 	var v10 string
 	var v11 string
 	var v12 string
-	var v13 float64
+	var v13 string
 	var v14 float64
-	var v15 int
+	var v15 float64
+	var v16 int
 	var data string
 	cmd := &cobra.Command{
 		Use:   "update <project-id> <id>",
@@ -546,26 +557,29 @@ func newExpensesUpdateCmd(app *cli.App) *cobra.Command {
 			if cmd.Flags().Changed("quantity") {
 				body["quantity"] = v8
 			}
+			if cmd.Flags().Changed("revenue-category-id") {
+				body["revenue_category_id"] = v9
+			}
 			if cmd.Flags().Changed("service-period-from") {
-				body["service_period_from"] = v9
+				body["service_period_from"] = v10
 			}
 			if cmd.Flags().Changed("service-period-to") {
-				body["service_period_to"] = v10
+				body["service_period_to"] = v11
 			}
 			if cmd.Flags().Changed("title") {
-				body["title"] = v11
+				body["title"] = v12
 			}
 			if cmd.Flags().Changed("unit") {
-				body["unit"] = v12
+				body["unit"] = v13
 			}
 			if cmd.Flags().Changed("unit-cost") {
-				body["unit_cost"] = v13
+				body["unit_cost"] = v14
 			}
 			if cmd.Flags().Changed("unit-price") {
-				body["unit_price"] = v14
+				body["unit_price"] = v15
 			}
 			if cmd.Flags().Changed("user-id") {
-				body["user_id"] = v15
+				body["user_id"] = v16
 			}
 			raw, err := cli.EncodeBody(body)
 			if err != nil {
@@ -588,13 +602,14 @@ func newExpensesUpdateCmd(app *cli.App) *cobra.Command {
 	f.Float64Var(&v6, "price", 0, "Deprecated total selling price alias.")
 	f.BoolVar(&v7, "purchase-assignment-locked", false, "Locks assignment to purchase items.")
 	f.Float64Var(&v8, "quantity", 0, "Quantity.")
-	f.StringVar(&v9, "service-period-from", "", "Start of service period.")
-	f.StringVar(&v10, "service-period-to", "", "End of service period.")
-	f.StringVar(&v11, "title", "", "Expense title.")
-	f.StringVar(&v12, "unit", "", "Unit label.")
-	f.Float64Var(&v13, "unit-cost", 0, "Unit internal cost.")
-	f.Float64Var(&v14, "unit-price", 0, "Unit selling price.")
-	f.IntVar(&v15, "user-id", 0, "Responsible user ID (must be active on create).")
+	f.IntVar(&v9, "revenue-category-id", 0, "Revenue category ID for billing assignment.")
+	f.StringVar(&v10, "service-period-from", "", "Start of service period.")
+	f.StringVar(&v11, "service-period-to", "", "End of service period.")
+	f.StringVar(&v12, "title", "", "Expense title.")
+	f.StringVar(&v13, "unit", "", "Unit label.")
+	f.Float64Var(&v14, "unit-cost", 0, "Unit internal cost.")
+	f.Float64Var(&v15, "unit-price", 0, "Unit selling price.")
+	f.IntVar(&v16, "user-id", 0, "Responsible user ID (must be active on create).")
 	f.StringVar(&data, "data", "", "request body as JSON object")
 	return cmd
 }

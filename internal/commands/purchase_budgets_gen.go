@@ -5,6 +5,7 @@ package commands
 import (
 	"fmt"
 	"net/url"
+	"strings"
 
 	"github.com/spf13/cobra"
 
@@ -18,8 +19,73 @@ func newPurchaseBudgetsCmd(app *cli.App) *cobra.Command {
 		Short: "Ausgabenbudgets verwalten",
 	}
 	cmd.AddCommand(
+		newPurchaseBudgetsCreateCmd(app),
+		newPurchaseBudgetsDeleteCmd(app),
 		newPurchaseBudgetsListCmd(app),
+		newPurchaseBudgetsPatchCmd(app),
+		newPurchaseBudgetsTargetUpdateCmd(app),
+		newPurchaseBudgetsUpdateCmd(app),
 	)
+	return cmd
+}
+
+func newPurchaseBudgetsCreateCmd(app *cli.App) *cobra.Command {
+	var v0 bool
+	var v1 string
+	var v2 string
+	var data string
+	cmd := &cobra.Command{
+		Use:   "create",
+		Short: "Ausgabenbudget erstellen",
+		Args:  cobra.ExactArgs(0),
+		RunE: func(cmd *cobra.Command, args []string) error {
+			path := "/purchases/budgets"
+			body, err := cli.ParseData(data)
+			if err != nil {
+				return err
+			}
+			if cmd.Flags().Changed("active") {
+				body["active"] = v0
+			}
+			if cmd.Flags().Changed("cost-category") {
+				body["cost_category"] = v1
+			}
+			if cmd.Flags().Changed("title") {
+				body["title"] = v2
+			}
+			raw, err := cli.EncodeBody(body)
+			if err != nil {
+				return err
+			}
+			return app.Execute(cmd.Context(), client.Request{
+				Method: "POST",
+				Path:   path,
+				Body:   raw,
+			})
+		},
+	}
+	f := cmd.Flags()
+	f.BoolVar(&v0, "active", false, "")
+	f.StringVar(&v1, "cost-category", "", "")
+	f.StringVar(&v2, "title", "", "")
+	f.StringVar(&data, "data", "", "request body as JSON object")
+	return cmd
+}
+
+func newPurchaseBudgetsDeleteCmd(app *cli.App) *cobra.Command {
+	cmd := &cobra.Command{
+		Use:   "delete <id>",
+		Short: "Ausgabenbudget löschen",
+		Args:  cobra.ExactArgs(1),
+		RunE: func(cmd *cobra.Command, args []string) error {
+			path := "/purchases/budgets/{id}"
+			path = strings.Replace(path, "{id}", url.PathEscape(args[0]), 1)
+			return app.Execute(cmd.Context(), client.Request{
+				Method: "DELETE",
+				Path:   path,
+			})
+		},
+	}
 	return cmd
 }
 
@@ -44,5 +110,132 @@ func newPurchaseBudgetsListCmd(app *cli.App) *cobra.Command {
 	}
 	f := cmd.Flags()
 	f.IntVar(&q0, "year", 0, "")
+	return cmd
+}
+
+func newPurchaseBudgetsPatchCmd(app *cli.App) *cobra.Command {
+	var v0 bool
+	var v1 string
+	var v2 string
+	var data string
+	cmd := &cobra.Command{
+		Use:   "patch <id>",
+		Short: "Ausgabenbudget teilweise aktualisieren",
+		Args:  cobra.ExactArgs(1),
+		RunE: func(cmd *cobra.Command, args []string) error {
+			path := "/purchases/budgets/{id}"
+			path = strings.Replace(path, "{id}", url.PathEscape(args[0]), 1)
+			body, err := cli.ParseData(data)
+			if err != nil {
+				return err
+			}
+			if cmd.Flags().Changed("active") {
+				body["active"] = v0
+			}
+			if cmd.Flags().Changed("cost-category") {
+				body["cost_category"] = v1
+			}
+			if cmd.Flags().Changed("title") {
+				body["title"] = v2
+			}
+			raw, err := cli.EncodeBody(body)
+			if err != nil {
+				return err
+			}
+			return app.Execute(cmd.Context(), client.Request{
+				Method: "PATCH",
+				Path:   path,
+				Body:   raw,
+			})
+		},
+	}
+	f := cmd.Flags()
+	f.BoolVar(&v0, "active", false, "")
+	f.StringVar(&v1, "cost-category", "", "")
+	f.StringVar(&v2, "title", "", "")
+	f.StringVar(&data, "data", "", "request body as JSON object")
+	return cmd
+}
+
+func newPurchaseBudgetsTargetUpdateCmd(app *cli.App) *cobra.Command {
+	var v0 float64
+	var v1 int
+	var data string
+	cmd := &cobra.Command{
+		Use:   "target-update <id>",
+		Short: "Jahresbudget aktualisieren",
+		Args:  cobra.ExactArgs(1),
+		RunE: func(cmd *cobra.Command, args []string) error {
+			path := "/purchases/budgets/{id}/target"
+			path = strings.Replace(path, "{id}", url.PathEscape(args[0]), 1)
+			body, err := cli.ParseData(data)
+			if err != nil {
+				return err
+			}
+			if cmd.Flags().Changed("target-amount") {
+				body["target_amount"] = v0
+			}
+			if cmd.Flags().Changed("year") {
+				body["year"] = v1
+			}
+			raw, err := cli.EncodeBody(body)
+			if err != nil {
+				return err
+			}
+			return app.Execute(cmd.Context(), client.Request{
+				Method: "PUT",
+				Path:   path,
+				Body:   raw,
+			})
+		},
+	}
+	f := cmd.Flags()
+	f.Float64Var(&v0, "target-amount", 0, "The target budget amount.")
+	f.IntVar(&v1, "year", 0, "The budget year. Defaults to the current year if omitted.")
+	f.StringVar(&data, "data", "", "request body as JSON object")
+	return cmd
+}
+
+func newPurchaseBudgetsUpdateCmd(app *cli.App) *cobra.Command {
+	var v0 bool
+	var v1 string
+	var v2 string
+	var data string
+	cmd := &cobra.Command{
+		Use:   "update <id>",
+		Short: "Ausgabenbudget aktualisieren",
+		Args:  cobra.ExactArgs(1),
+		RunE: func(cmd *cobra.Command, args []string) error {
+			path := "/purchases/budgets/{id}"
+			path = strings.Replace(path, "{id}", url.PathEscape(args[0]), 1)
+			body, err := cli.ParseData(data)
+			if err != nil {
+				return err
+			}
+			if cmd.Flags().Changed("active") {
+				body["active"] = v0
+			}
+			if cmd.Flags().Changed("cost-category") {
+				body["cost_category"] = v1
+			}
+			if cmd.Flags().Changed("title") {
+				body["title"] = v2
+			}
+			raw, err := cli.EncodeBody(body)
+			if err != nil {
+				return err
+			}
+			return app.Execute(cmd.Context(), client.Request{
+				Method: "PUT",
+				Path:   path,
+				Body:   raw,
+			})
+		},
+	}
+	f := cmd.Flags()
+	f.BoolVar(&v0, "active", false, "")
+	f.StringVar(&v1, "cost-category", "", "")
+	f.StringVar(&v2, "title", "", "")
+	f.StringVar(&data, "data", "", "request body as JSON object")
 	return cmd
 }

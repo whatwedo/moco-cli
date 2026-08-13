@@ -16,7 +16,7 @@ import (
 func newPurchaseCategoriesCmd(app *cli.App) *cobra.Command {
 	cmd := &cobra.Command{
 		Use:   "purchase-categories",
-		Short: "Aufwandskategorien verwalten",
+		Short: "Ausgabenkategorien verwalten",
 	}
 	cmd.AddCommand(
 		newPurchaseCategoriesGetCmd(app),
@@ -28,7 +28,7 @@ func newPurchaseCategoriesCmd(app *cli.App) *cobra.Command {
 func newPurchaseCategoriesGetCmd(app *cli.App) *cobra.Command {
 	cmd := &cobra.Command{
 		Use:   "get <id>",
-		Short: "Aufwandskategorie abrufen",
+		Short: "Ausgabenkategorie abrufen",
 		Args:  cobra.ExactArgs(1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			path := "/purchases/categories/{id}"
@@ -48,7 +48,7 @@ func newPurchaseCategoriesListCmd(app *cli.App) *cobra.Command {
 	var q2 string
 	cmd := &cobra.Command{
 		Use:   "list",
-		Short: "Aufwandskategorien auflisten",
+		Short: "Ausgabenkategorien auflisten",
 		Args:  cobra.ExactArgs(0),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			path := "/purchases/categories"

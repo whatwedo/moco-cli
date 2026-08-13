@@ -15,7 +15,7 @@ import (
 func newInvoiceAttachmentsCmd(app *cli.App) *cobra.Command {
 	cmd := &cobra.Command{
 		Use:   "invoice-attachments",
-		Short: "Rechnungsanhänge verwalten",
+		Short: "Anhänge verwalten",
 	}
 	cmd.AddCommand(
 		newInvoiceAttachmentsCreateCmd(app),
@@ -29,7 +29,7 @@ func newInvoiceAttachmentsCreateCmd(app *cli.App) *cobra.Command {
 	var data string
 	cmd := &cobra.Command{
 		Use:   "create <invoice-id>",
-		Short: "Rechnungsanhang erstellen",
+		Short: "Anhang erstellen",
 		Args:  cobra.ExactArgs(1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			path := "/invoices/{invoice_id}/attachments"
@@ -57,7 +57,7 @@ func newInvoiceAttachmentsCreateCmd(app *cli.App) *cobra.Command {
 func newInvoiceAttachmentsDeleteCmd(app *cli.App) *cobra.Command {
 	cmd := &cobra.Command{
 		Use:   "delete <invoice-id> <id>",
-		Short: "Rechnungsanhang löschen",
+		Short: "Anhang löschen",
 		Args:  cobra.ExactArgs(2),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			path := "/invoices/{invoice_id}/attachments/{id}"
@@ -75,7 +75,7 @@ func newInvoiceAttachmentsDeleteCmd(app *cli.App) *cobra.Command {
 func newInvoiceAttachmentsListCmd(app *cli.App) *cobra.Command {
 	cmd := &cobra.Command{
 		Use:   "list <invoice-id>",
-		Short: "Rechnungsanhänge auflisten",
+		Short: "Anhänge auflisten",
 		Args:  cobra.ExactArgs(1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			path := "/invoices/{invoice_id}/attachments"

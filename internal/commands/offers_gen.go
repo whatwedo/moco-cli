@@ -21,10 +21,13 @@ func newOffersCmd(app *cli.App) *cobra.Command {
 	cmd.AddCommand(
 		newOffersAssignCmd(app),
 		newOffersCreateCmd(app),
+		newOffersDeleteCmd(app),
 		newOffersGetCmd(app),
 		newOffersListCmd(app),
+		newOffersPatchCmd(app),
 		newOffersPdfCmd(app),
 		newOffersSendEmailCmd(app),
+		newOffersUpdateCmd(app),
 		newOffersUpdateStatusCmd(app),
 	)
 	return cmd
@@ -94,6 +97,7 @@ func newOffersCreateCmd(app *cli.App) *cobra.Command {
 	var v16 float64
 	var v17 string
 	var v18 bool
+	var v19 int
 	var data string
 	cmd := &cobra.Command{
 		Use:   "create",
@@ -162,6 +166,9 @@ func newOffersCreateCmd(app *cli.App) *cobra.Command {
 			if cmd.Flags().Changed("totals-section-visible") {
 				body["totals_section_visible"] = v18
 			}
+			if cmd.Flags().Changed("vat-code-id") {
+				body["vat_code_id"] = v19
+			}
 			raw, err := cli.EncodeBody(body)
 			if err != nil {
 				return err
@@ -190,10 +197,28 @@ func newOffersCreateCmd(app *cli.App) *cobra.Command {
 	f.StringVar(&v13, "recipient-address", "", "")
 	f.StringVar(&v14, "salutation", "", "")
 	f.BoolVar(&v15, "table-header-visible", false, "")
-	f.Float64Var(&v16, "tax", 0, "Must match an active sale VAT code tax in the account.")
+	f.Float64Var(&v16, "tax", 0, "Deprecated: use `vat_code_id` instead. Must match an active sale VAT code tax in the account.")
 	f.StringVar(&v17, "title", "", "")
 	f.BoolVar(&v18, "totals-section-visible", false, "")
+	f.IntVar(&v19, "vat-code-id", 0, "ID of an active sale VAT code in the account.")
 	f.StringVar(&data, "data", "", "request body as JSON object")
+	return cmd
+}
+
+func newOffersDeleteCmd(app *cli.App) *cobra.Command {
+	cmd := &cobra.Command{
+		Use:   "delete <id>",
+		Short: "Angebot löschen",
+		Args:  cobra.ExactArgs(1),
+		RunE: func(cmd *cobra.Command, args []string) error {
+			path := "/offers/{id}"
+			path = strings.Replace(path, "{id}", url.PathEscape(args[0]), 1)
+			return app.Execute(cmd.Context(), client.Request{
+				Method: "DELETE",
+				Path:   path,
+			})
+		},
+	}
 	return cmd
 }
 
@@ -303,6 +328,110 @@ func newOffersListCmd(app *cli.App) *cobra.Command {
 	return cmd
 }
 
+func newOffersPatchCmd(app *cli.App) *cobra.Command {
+	var v0 string
+	var v1 int
+	var v2 string
+	var v3 float64
+	var v4 string
+	var v5 string
+	var v6 string
+	var v7 int
+	var v8 bool
+	var v9 string
+	var v10 string
+	var v11 bool
+	var v12 string
+	var v13 bool
+	var v14 int
+	var data string
+	cmd := &cobra.Command{
+		Use:   "patch <id>",
+		Short: "Angebot teilweise aktualisieren",
+		Args:  cobra.ExactArgs(1),
+		RunE: func(cmd *cobra.Command, args []string) error {
+			path := "/offers/{id}"
+			path = strings.Replace(path, "{id}", url.PathEscape(args[0]), 1)
+			body, err := cli.ParseData(data)
+			if err != nil {
+				return err
+			}
+			if cmd.Flags().Changed("change-address") {
+				body["change_address"] = v0
+			}
+			if cmd.Flags().Changed("contact-id") {
+				body["contact_id"] = v1
+			}
+			if cmd.Flags().Changed("date") {
+				body["date"] = v2
+			}
+			if cmd.Flags().Changed("discount") {
+				body["discount"] = v3
+			}
+			if cmd.Flags().Changed("due-date") {
+				body["due_date"] = v4
+			}
+			if cmd.Flags().Changed("footer") {
+				body["footer"] = v5
+			}
+			if cmd.Flags().Changed("identifier") {
+				body["identifier"] = v6
+			}
+			if cmd.Flags().Changed("internal-contact-id") {
+				body["internal_contact_id"] = v7
+			}
+			if cmd.Flags().Changed("print-detail-columns") {
+				body["print_detail_columns"] = v8
+			}
+			if cmd.Flags().Changed("recipient-address") {
+				body["recipient_address"] = v9
+			}
+			if cmd.Flags().Changed("salutation") {
+				body["salutation"] = v10
+			}
+			if cmd.Flags().Changed("table-header-visible") {
+				body["table_header_visible"] = v11
+			}
+			if cmd.Flags().Changed("title") {
+				body["title"] = v12
+			}
+			if cmd.Flags().Changed("totals-section-visible") {
+				body["totals_section_visible"] = v13
+			}
+			if cmd.Flags().Changed("vat-code-id") {
+				body["vat_code_id"] = v14
+			}
+			raw, err := cli.EncodeBody(body)
+			if err != nil {
+				return err
+			}
+			return app.Execute(cmd.Context(), client.Request{
+				Method: "PATCH",
+				Path:   path,
+				Body:   raw,
+			})
+		},
+	}
+	f := cmd.Flags()
+	f.StringVar(&v0, "change-address", "", "")
+	f.IntVar(&v1, "contact-id", 0, "")
+	f.StringVar(&v2, "date", "", "")
+	f.Float64Var(&v3, "discount", 0, "")
+	f.StringVar(&v4, "due-date", "", "")
+	f.StringVar(&v5, "footer", "", "")
+	f.StringVar(&v6, "identifier", "", "")
+	f.IntVar(&v7, "internal-contact-id", 0, "")
+	f.BoolVar(&v8, "print-detail-columns", false, "")
+	f.StringVar(&v9, "recipient-address", "", "")
+	f.StringVar(&v10, "salutation", "", "")
+	f.BoolVar(&v11, "table-header-visible", false, "")
+	f.StringVar(&v12, "title", "", "")
+	f.BoolVar(&v13, "totals-section-visible", false, "")
+	f.IntVar(&v14, "vat-code-id", 0, "ID of an active sale VAT code in the account.")
+	f.StringVar(&data, "data", "", "request body as JSON object")
+	return cmd
+}
+
 func newOffersPdfCmd(app *cli.App) *cobra.Command {
 	var q0 int
 	cmd := &cobra.Command{
@@ -383,6 +512,110 @@ func newOffersSendEmailCmd(app *cli.App) *cobra.Command {
 	f.IntVar(&v3, "letter-paper-id", 0, "")
 	f.StringVar(&v4, "subject", "", "")
 	f.StringVar(&v5, "text", "", "")
+	f.StringVar(&data, "data", "", "request body as JSON object")
+	return cmd
+}
+
+func newOffersUpdateCmd(app *cli.App) *cobra.Command {
+	var v0 string
+	var v1 int
+	var v2 string
+	var v3 float64
+	var v4 string
+	var v5 string
+	var v6 string
+	var v7 int
+	var v8 bool
+	var v9 string
+	var v10 string
+	var v11 bool
+	var v12 string
+	var v13 bool
+	var v14 int
+	var data string
+	cmd := &cobra.Command{
+		Use:   "update <id>",
+		Short: "Angebot aktualisieren",
+		Args:  cobra.ExactArgs(1),
+		RunE: func(cmd *cobra.Command, args []string) error {
+			path := "/offers/{id}"
+			path = strings.Replace(path, "{id}", url.PathEscape(args[0]), 1)
+			body, err := cli.ParseData(data)
+			if err != nil {
+				return err
+			}
+			if cmd.Flags().Changed("change-address") {
+				body["change_address"] = v0
+			}
+			if cmd.Flags().Changed("contact-id") {
+				body["contact_id"] = v1
+			}
+			if cmd.Flags().Changed("date") {
+				body["date"] = v2
+			}
+			if cmd.Flags().Changed("discount") {
+				body["discount"] = v3
+			}
+			if cmd.Flags().Changed("due-date") {
+				body["due_date"] = v4
+			}
+			if cmd.Flags().Changed("footer") {
+				body["footer"] = v5
+			}
+			if cmd.Flags().Changed("identifier") {
+				body["identifier"] = v6
+			}
+			if cmd.Flags().Changed("internal-contact-id") {
+				body["internal_contact_id"] = v7
+			}
+			if cmd.Flags().Changed("print-detail-columns") {
+				body["print_detail_columns"] = v8
+			}
+			if cmd.Flags().Changed("recipient-address") {
+				body["recipient_address"] = v9
+			}
+			if cmd.Flags().Changed("salutation") {
+				body["salutation"] = v10
+			}
+			if cmd.Flags().Changed("table-header-visible") {
+				body["table_header_visible"] = v11
+			}
+			if cmd.Flags().Changed("title") {
+				body["title"] = v12
+			}
+			if cmd.Flags().Changed("totals-section-visible") {
+				body["totals_section_visible"] = v13
+			}
+			if cmd.Flags().Changed("vat-code-id") {
+				body["vat_code_id"] = v14
+			}
+			raw, err := cli.EncodeBody(body)
+			if err != nil {
+				return err
+			}
+			return app.Execute(cmd.Context(), client.Request{
+				Method: "PUT",
+				Path:   path,
+				Body:   raw,
+			})
+		},
+	}
+	f := cmd.Flags()
+	f.StringVar(&v0, "change-address", "", "")
+	f.IntVar(&v1, "contact-id", 0, "")
+	f.StringVar(&v2, "date", "", "")
+	f.Float64Var(&v3, "discount", 0, "")
+	f.StringVar(&v4, "due-date", "", "")
+	f.StringVar(&v5, "footer", "", "")
+	f.StringVar(&v6, "identifier", "", "")
+	f.IntVar(&v7, "internal-contact-id", 0, "")
+	f.BoolVar(&v8, "print-detail-columns", false, "")
+	f.StringVar(&v9, "recipient-address", "", "")
+	f.StringVar(&v10, "salutation", "", "")
+	f.BoolVar(&v11, "table-header-visible", false, "")
+	f.StringVar(&v12, "title", "", "")
+	f.BoolVar(&v13, "totals-section-visible", false, "")
+	f.IntVar(&v14, "vat-code-id", 0, "ID of an active sale VAT code in the account.")
 	f.StringVar(&data, "data", "", "request body as JSON object")
 	return cmd
 }

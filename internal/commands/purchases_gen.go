@@ -101,14 +101,14 @@ func newPurchasesCreateCmd(app *cli.App) *cobra.Command {
 	var v1 float64
 	var v2 string
 	var v3 int
-	var v4 int
+	var v4 string
 	var v5 string
 	var v6 string
 	var v7 string
-	var v8 string
-	var v9 int
+	var v8 int
+	var v9 string
 	var v10 string
-	var v11 string
+	var v11 int
 	var v12 int
 	var v13 string
 	var v14 string
@@ -139,29 +139,29 @@ func newPurchasesCreateCmd(app *cli.App) *cobra.Command {
 			if cmd.Flags().Changed("company-id") {
 				body["company_id"] = v3
 			}
-			if cmd.Flags().Changed("cost-center-id") {
-				body["cost_center_id"] = v4
-			}
 			if cmd.Flags().Changed("currency") {
-				body["currency"] = v5
+				body["currency"] = v4
 			}
 			if cmd.Flags().Changed("date") {
-				body["date"] = v6
+				body["date"] = v5
 			}
 			if cmd.Flags().Changed("due-date") {
-				body["due_date"] = v7
+				body["due_date"] = v6
 			}
 			if cmd.Flags().Changed("iban") {
-				body["iban"] = v8
+				body["iban"] = v7
 			}
 			if cmd.Flags().Changed("inbound-email-id") {
-				body["inbound_email_id"] = v9
+				body["inbound_email_id"] = v8
 			}
 			if cmd.Flags().Changed("info") {
-				body["info"] = v10
+				body["info"] = v9
 			}
 			if cmd.Flags().Changed("payment-method") {
-				body["payment_method"] = v11
+				body["payment_method"] = v10
+			}
+			if cmd.Flags().Changed("purchase-budget-id") {
+				body["purchase_budget_id"] = v11
 			}
 			if cmd.Flags().Changed("purchase-draft-id") {
 				body["purchase_draft_id"] = v12
@@ -200,14 +200,14 @@ func newPurchasesCreateCmd(app *cli.App) *cobra.Command {
 	f.Float64Var(&v1, "cash-discount-rate", 0, "")
 	f.StringVar(&v2, "cash-discount-until", "", "")
 	f.IntVar(&v3, "company-id", 0, "")
-	f.IntVar(&v4, "cost-center-id", 0, "")
-	f.StringVar(&v5, "currency", "", "")
-	f.StringVar(&v6, "date", "", "")
-	f.StringVar(&v7, "due-date", "", "")
-	f.StringVar(&v8, "iban", "", "")
-	f.IntVar(&v9, "inbound-email-id", 0, "")
-	f.StringVar(&v10, "info", "", "")
-	f.StringVar(&v11, "payment-method", "", "")
+	f.StringVar(&v4, "currency", "", "")
+	f.StringVar(&v5, "date", "", "")
+	f.StringVar(&v6, "due-date", "", "")
+	f.StringVar(&v7, "iban", "", "")
+	f.IntVar(&v8, "inbound-email-id", 0, "")
+	f.StringVar(&v9, "info", "", "")
+	f.StringVar(&v10, "payment-method", "", "")
+	f.IntVar(&v11, "purchase-budget-id", 0, "")
 	f.IntVar(&v12, "purchase-draft-id", 0, "")
 	f.StringVar(&v13, "receipt-identifier", "", "")
 	f.StringVar(&v14, "reference", "", "")
@@ -254,25 +254,28 @@ func newPurchasesGetCmd(app *cli.App) *cobra.Command {
 }
 
 func newPurchasesListCmd(app *cli.App) *cobra.Command {
-	var q0 int
+	var q0 string
 	var q1 int
-	var q2 string
-	var q3 string
+	var q2 int
+	var q3 int
 	var q4 string
 	var q5 string
 	var q6 string
-	var q7 bool
-	var q8 int
+	var q7 string
+	var q8 string
 	var q9 bool
-	var q10 string
-	var q11 int
+	var q10 int
+	var q11 bool
 	var q12 string
-	var q13 string
+	var q13 int
 	var q14 string
 	var q15 string
 	var q16 string
-	var q17 bool
+	var q17 string
 	var q18 string
+	var q19 bool
+	var q20 string
+	var q21 int
 	cmd := &cobra.Command{
 		Use:   "list",
 		Short: "Ausgaben auflisten",
@@ -280,62 +283,71 @@ func newPurchasesListCmd(app *cli.App) *cobra.Command {
 		RunE: func(cmd *cobra.Command, args []string) error {
 			path := "/purchases"
 			q := url.Values{}
+			if cmd.Flags().Changed("approval-status") {
+				q.Set("approval_status", fmt.Sprint(q0))
+			}
+			if cmd.Flags().Changed("approver-user-id") {
+				q.Set("approver_user_id", fmt.Sprint(q1))
+			}
 			if cmd.Flags().Changed("category-id") {
-				q.Set("category_id", fmt.Sprint(q0))
+				q.Set("category_id", fmt.Sprint(q2))
 			}
 			if cmd.Flags().Changed("company-id") {
-				q.Set("company_id", fmt.Sprint(q1))
+				q.Set("company_id", fmt.Sprint(q3))
 			}
 			if cmd.Flags().Changed("custom-properties") {
-				q.Set("custom_properties", fmt.Sprint(q2))
+				q.Set("custom_properties", fmt.Sprint(q4))
 			}
 			if cmd.Flags().Changed("date") {
-				q.Set("date", fmt.Sprint(q3))
+				q.Set("date", fmt.Sprint(q5))
 			}
 			if cmd.Flags().Changed("id") {
-				q.Set("id", fmt.Sprint(q4))
+				q.Set("id", fmt.Sprint(q6))
 			}
 			if cmd.Flags().Changed("identifier") {
-				q.Set("identifier", fmt.Sprint(q5))
+				q.Set("identifier", fmt.Sprint(q7))
 			}
 			if cmd.Flags().Changed("ids") {
-				q.Set("ids", fmt.Sprint(q6))
+				q.Set("ids", fmt.Sprint(q8))
 			}
 			if cmd.Flags().Changed("not-booked") {
-				q.Set("not_booked", fmt.Sprint(q7))
+				q.Set("not_booked", fmt.Sprint(q9))
 			}
 			if cmd.Flags().Changed("page") {
-				q.Set("page", fmt.Sprint(q8))
+				q.Set("page", fmt.Sprint(q10))
 			}
 			if cmd.Flags().Changed("partially-paid") {
-				q.Set("partially_paid", fmt.Sprint(q9))
+				q.Set("partially_paid", fmt.Sprint(q11))
 			}
 			if cmd.Flags().Changed("payment-method") {
-				q.Set("payment_method", fmt.Sprint(q10))
+				q.Set("payment_method", fmt.Sprint(q12))
 			}
 			if cmd.Flags().Changed("per-page") {
-				q.Set("per_page", fmt.Sprint(q11))
+				q.Set("per_page", fmt.Sprint(q13))
 			}
 			if cmd.Flags().Changed("receipt-identifier") {
-				q.Set("receipt_identifier", fmt.Sprint(q12))
+				q.Set("receipt_identifier", fmt.Sprint(q14))
 			}
 			if cmd.Flags().Changed("status") {
-				q.Set("status", fmt.Sprint(q13))
+				q.Set("status", fmt.Sprint(q15))
 			}
 			if cmd.Flags().Changed("tag-ids") {
-				q.Set("tag_ids", fmt.Sprint(q14))
+				q.Set("tag_ids", fmt.Sprint(q16))
 			}
 			if cmd.Flags().Changed("tags") {
-				q.Set("tags", fmt.Sprint(q15))
+				q.Set("tags", fmt.Sprint(q17))
 			}
 			if cmd.Flags().Changed("term") {
-				q.Set("term", fmt.Sprint(q16))
+				q.Set("term", fmt.Sprint(q18))
 			}
 			if cmd.Flags().Changed("unpaid") {
-				q.Set("unpaid", fmt.Sprint(q17))
+				q.Set("unpaid", fmt.Sprint(q19))
 			}
 			if cmd.Flags().Changed("updated-after") {
-				q.Set("updated_after", fmt.Sprint(q18))
+				q.Set("updated_after", fmt.Sprint(q20))
+			}
+			if cmd.Flags().Changed("user-id") {
+				q.Set("user_id", fmt.Sprint(q21))
 			}
 			return app.Execute(cmd.Context(), client.Request{
 				Method: "GET",
@@ -345,25 +357,28 @@ func newPurchasesListCmd(app *cli.App) *cobra.Command {
 		},
 	}
 	f := cmd.Flags()
-	f.IntVar(&q0, "category-id", 0, "")
-	f.IntVar(&q1, "company-id", 0, "Supplier company ID. Use `0` for purchases without supplier.")
-	f.StringVar(&q2, "custom-properties", "", "Filter by custom field values.")
-	f.StringVar(&q3, "date", "", "Date range, e.g. `2020-02-01:2020-02-22`.")
-	f.StringVar(&q4, "id", "", "Legacy alias for filtering by purchase ID (single ID or comma-separated list).")
-	f.StringVar(&q5, "identifier", "", "")
-	f.StringVar(&q6, "ids", "", "Comma-separated IDs.")
-	f.BoolVar(&q7, "not-booked", false, "")
-	f.IntVar(&q8, "page", 0, "Page number, starting at 1.")
-	f.BoolVar(&q9, "partially-paid", false, "")
-	f.StringVar(&q10, "payment-method", "", "")
-	f.IntVar(&q11, "per-page", 0, "Page size.")
-	f.StringVar(&q12, "receipt-identifier", "", "")
-	f.StringVar(&q13, "status", "", "")
-	f.StringVar(&q14, "tag-ids", "", "Comma-separated list of tag IDs.")
-	f.StringVar(&q15, "tags", "", "Comma-separated list of tag names.")
-	f.StringVar(&q16, "term", "", "")
-	f.BoolVar(&q17, "unpaid", false, "")
-	f.StringVar(&q18, "updated-after", "", "ISO 8601 UTC timestamp (e.g. `2026-01-31T14:30:00Z`).")
+	f.StringVar(&q0, "approval-status", "", "")
+	f.IntVar(&q1, "approver-user-id", 0, "")
+	f.IntVar(&q2, "category-id", 0, "")
+	f.IntVar(&q3, "company-id", 0, "Supplier company ID. Use `0` for purchases without supplier.")
+	f.StringVar(&q4, "custom-properties", "", "Filter by custom field values.")
+	f.StringVar(&q5, "date", "", "Date range, e.g. `2020-02-01:2020-02-22`.")
+	f.StringVar(&q6, "id", "", "Legacy alias for filtering by purchase ID (single ID or comma-separated list).")
+	f.StringVar(&q7, "identifier", "", "")
+	f.StringVar(&q8, "ids", "", "Comma-separated IDs.")
+	f.BoolVar(&q9, "not-booked", false, "")
+	f.IntVar(&q10, "page", 0, "Page number, starting at 1.")
+	f.BoolVar(&q11, "partially-paid", false, "")
+	f.StringVar(&q12, "payment-method", "", "")
+	f.IntVar(&q13, "per-page", 0, "Page size.")
+	f.StringVar(&q14, "receipt-identifier", "", "")
+	f.StringVar(&q15, "status", "", "")
+	f.StringVar(&q16, "tag-ids", "", "Comma-separated list of tag IDs.")
+	f.StringVar(&q17, "tags", "", "Comma-separated list of tag names.")
+	f.StringVar(&q18, "term", "", "")
+	f.BoolVar(&q19, "unpaid", false, "")
+	f.StringVar(&q20, "updated-after", "", "ISO 8601 UTC timestamp (e.g. `2026-01-31T14:30:00Z`).")
+	f.IntVar(&q21, "user-id", 0, "User ID (responsible for purchase)")
 	return cmd
 }
 
@@ -372,14 +387,14 @@ func newPurchasesPatchCmd(app *cli.App) *cobra.Command {
 	var v1 float64
 	var v2 string
 	var v3 int
-	var v4 int
+	var v4 string
 	var v5 string
 	var v6 string
 	var v7 string
-	var v8 string
-	var v9 int
+	var v8 int
+	var v9 string
 	var v10 string
-	var v11 string
+	var v11 int
 	var v12 int
 	var v13 string
 	var v14 string
@@ -411,29 +426,29 @@ func newPurchasesPatchCmd(app *cli.App) *cobra.Command {
 			if cmd.Flags().Changed("company-id") {
 				body["company_id"] = v3
 			}
-			if cmd.Flags().Changed("cost-center-id") {
-				body["cost_center_id"] = v4
-			}
 			if cmd.Flags().Changed("currency") {
-				body["currency"] = v5
+				body["currency"] = v4
 			}
 			if cmd.Flags().Changed("date") {
-				body["date"] = v6
+				body["date"] = v5
 			}
 			if cmd.Flags().Changed("due-date") {
-				body["due_date"] = v7
+				body["due_date"] = v6
 			}
 			if cmd.Flags().Changed("iban") {
-				body["iban"] = v8
+				body["iban"] = v7
 			}
 			if cmd.Flags().Changed("inbound-email-id") {
-				body["inbound_email_id"] = v9
+				body["inbound_email_id"] = v8
 			}
 			if cmd.Flags().Changed("info") {
-				body["info"] = v10
+				body["info"] = v9
 			}
 			if cmd.Flags().Changed("payment-method") {
-				body["payment_method"] = v11
+				body["payment_method"] = v10
+			}
+			if cmd.Flags().Changed("purchase-budget-id") {
+				body["purchase_budget_id"] = v11
 			}
 			if cmd.Flags().Changed("purchase-draft-id") {
 				body["purchase_draft_id"] = v12
@@ -472,14 +487,14 @@ func newPurchasesPatchCmd(app *cli.App) *cobra.Command {
 	f.Float64Var(&v1, "cash-discount-rate", 0, "")
 	f.StringVar(&v2, "cash-discount-until", "", "")
 	f.IntVar(&v3, "company-id", 0, "")
-	f.IntVar(&v4, "cost-center-id", 0, "")
-	f.StringVar(&v5, "currency", "", "")
-	f.StringVar(&v6, "date", "", "")
-	f.StringVar(&v7, "due-date", "", "")
-	f.StringVar(&v8, "iban", "", "")
-	f.IntVar(&v9, "inbound-email-id", 0, "")
-	f.StringVar(&v10, "info", "", "")
-	f.StringVar(&v11, "payment-method", "", "")
+	f.StringVar(&v4, "currency", "", "")
+	f.StringVar(&v5, "date", "", "")
+	f.StringVar(&v6, "due-date", "", "")
+	f.StringVar(&v7, "iban", "", "")
+	f.IntVar(&v8, "inbound-email-id", 0, "")
+	f.StringVar(&v9, "info", "", "")
+	f.StringVar(&v10, "payment-method", "", "")
+	f.IntVar(&v11, "purchase-budget-id", 0, "")
 	f.IntVar(&v12, "purchase-draft-id", 0, "")
 	f.StringVar(&v13, "receipt-identifier", "", "")
 	f.StringVar(&v14, "reference", "", "")
@@ -513,14 +528,14 @@ func newPurchasesUpdateCmd(app *cli.App) *cobra.Command {
 	var v1 float64
 	var v2 string
 	var v3 int
-	var v4 int
+	var v4 string
 	var v5 string
 	var v6 string
 	var v7 string
-	var v8 string
-	var v9 int
+	var v8 int
+	var v9 string
 	var v10 string
-	var v11 string
+	var v11 int
 	var v12 int
 	var v13 string
 	var v14 string
@@ -552,29 +567,29 @@ func newPurchasesUpdateCmd(app *cli.App) *cobra.Command {
 			if cmd.Flags().Changed("company-id") {
 				body["company_id"] = v3
 			}
-			if cmd.Flags().Changed("cost-center-id") {
-				body["cost_center_id"] = v4
-			}
 			if cmd.Flags().Changed("currency") {
-				body["currency"] = v5
+				body["currency"] = v4
 			}
 			if cmd.Flags().Changed("date") {
-				body["date"] = v6
+				body["date"] = v5
 			}
 			if cmd.Flags().Changed("due-date") {
-				body["due_date"] = v7
+				body["due_date"] = v6
 			}
 			if cmd.Flags().Changed("iban") {
-				body["iban"] = v8
+				body["iban"] = v7
 			}
 			if cmd.Flags().Changed("inbound-email-id") {
-				body["inbound_email_id"] = v9
+				body["inbound_email_id"] = v8
 			}
 			if cmd.Flags().Changed("info") {
-				body["info"] = v10
+				body["info"] = v9
 			}
 			if cmd.Flags().Changed("payment-method") {
-				body["payment_method"] = v11
+				body["payment_method"] = v10
+			}
+			if cmd.Flags().Changed("purchase-budget-id") {
+				body["purchase_budget_id"] = v11
 			}
 			if cmd.Flags().Changed("purchase-draft-id") {
 				body["purchase_draft_id"] = v12
@@ -613,14 +628,14 @@ func newPurchasesUpdateCmd(app *cli.App) *cobra.Command {
 	f.Float64Var(&v1, "cash-discount-rate", 0, "")
 	f.StringVar(&v2, "cash-discount-until", "", "")
 	f.IntVar(&v3, "company-id", 0, "")
-	f.IntVar(&v4, "cost-center-id", 0, "")
-	f.StringVar(&v5, "currency", "", "")
-	f.StringVar(&v6, "date", "", "")
-	f.StringVar(&v7, "due-date", "", "")
-	f.StringVar(&v8, "iban", "", "")
-	f.IntVar(&v9, "inbound-email-id", 0, "")
-	f.StringVar(&v10, "info", "", "")
-	f.StringVar(&v11, "payment-method", "", "")
+	f.StringVar(&v4, "currency", "", "")
+	f.StringVar(&v5, "date", "", "")
+	f.StringVar(&v6, "due-date", "", "")
+	f.StringVar(&v7, "iban", "", "")
+	f.IntVar(&v8, "inbound-email-id", 0, "")
+	f.StringVar(&v9, "info", "", "")
+	f.StringVar(&v10, "payment-method", "", "")
+	f.IntVar(&v11, "purchase-budget-id", 0, "")
 	f.IntVar(&v12, "purchase-draft-id", 0, "")
 	f.StringVar(&v13, "receipt-identifier", "", "")
 	f.StringVar(&v14, "reference", "", "")

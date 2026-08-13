@@ -15,7 +15,7 @@ import (
 func newOfferCustomerApprovalCmd(app *cli.App) *cobra.Command {
 	cmd := &cobra.Command{
 		Use:   "offer-customer-approval",
-		Short: "Angebotsbestätigungen verwalten",
+		Short: "Freigaben verwalten",
 	}
 	cmd.AddCommand(
 		newOfferCustomerApprovalActivateCmd(app),
@@ -62,7 +62,7 @@ func newOfferCustomerApprovalDeactivateCmd(app *cli.App) *cobra.Command {
 func newOfferCustomerApprovalGetCmd(app *cli.App) *cobra.Command {
 	cmd := &cobra.Command{
 		Use:   "get <offer-id>",
-		Short: "Angebotsbestätigung abrufen",
+		Short: "Freigabe abrufen",
 		Args:  cobra.ExactArgs(1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			path := "/offers/{offer_id}/customer_approval"

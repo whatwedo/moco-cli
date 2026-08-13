@@ -16,7 +16,7 @@ import (
 func newRecurringExpensesCmd(app *cli.App) *cobra.Command {
 	cmd := &cobra.Command{
 		Use:   "recurring-expenses",
-		Short: "Wiederkehrende Ausgaben verwalten",
+		Short: "Wiederkehrende Zusatzleistungen verwalten",
 	}
 	cmd.AddCommand(
 		newRecurringExpensesCreateCmd(app),
@@ -40,17 +40,18 @@ func newRecurringExpensesCreateCmd(app *cli.App) *cobra.Command {
 	var v5 string
 	var v6 bool
 	var v7 float64
-	var v8 string
+	var v8 int
 	var v9 string
 	var v10 string
 	var v11 string
-	var v12 float64
+	var v12 string
 	var v13 float64
-	var v14 int
+	var v14 float64
+	var v15 int
 	var data string
 	cmd := &cobra.Command{
 		Use:   "create <project-id>",
-		Short: "Wiederkehrende Ausgabe erstellen",
+		Short: "Wiederkehrende Zusatzleistung erstellen",
 		Args:  cobra.ExactArgs(1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			path := "/projects/{project_id}/recurring_expenses"
@@ -83,26 +84,29 @@ func newRecurringExpensesCreateCmd(app *cli.App) *cobra.Command {
 			if cmd.Flags().Changed("quantity") {
 				body["quantity"] = v7
 			}
+			if cmd.Flags().Changed("revenue-category-id") {
+				body["revenue_category_id"] = v8
+			}
 			if cmd.Flags().Changed("service-period-direction") {
-				body["service_period_direction"] = v8
+				body["service_period_direction"] = v9
 			}
 			if cmd.Flags().Changed("start-date") {
-				body["start_date"] = v9
+				body["start_date"] = v10
 			}
 			if cmd.Flags().Changed("title") {
-				body["title"] = v10
+				body["title"] = v11
 			}
 			if cmd.Flags().Changed("unit") {
-				body["unit"] = v11
+				body["unit"] = v12
 			}
 			if cmd.Flags().Changed("unit-cost") {
-				body["unit_cost"] = v12
+				body["unit_cost"] = v13
 			}
 			if cmd.Flags().Changed("unit-price") {
-				body["unit_price"] = v13
+				body["unit_price"] = v14
 			}
 			if cmd.Flags().Changed("user-id") {
-				body["user_id"] = v14
+				body["user_id"] = v15
 			}
 			raw, err := cli.EncodeBody(body)
 			if err != nil {
@@ -124,13 +128,14 @@ func newRecurringExpensesCreateCmd(app *cli.App) *cobra.Command {
 	f.StringVar(&v5, "period", "", "")
 	f.BoolVar(&v6, "purchase-assignment-locked", false, "")
 	f.Float64Var(&v7, "quantity", 0, "")
-	f.StringVar(&v8, "service-period-direction", "", "")
-	f.StringVar(&v9, "start-date", "", "")
-	f.StringVar(&v10, "title", "", "")
-	f.StringVar(&v11, "unit", "", "")
-	f.Float64Var(&v12, "unit-cost", 0, "")
-	f.Float64Var(&v13, "unit-price", 0, "")
-	f.IntVar(&v14, "user-id", 0, "")
+	f.IntVar(&v8, "revenue-category-id", 0, "")
+	f.StringVar(&v9, "service-period-direction", "", "")
+	f.StringVar(&v10, "start-date", "", "")
+	f.StringVar(&v11, "title", "", "")
+	f.StringVar(&v12, "unit", "", "")
+	f.Float64Var(&v13, "unit-cost", 0, "")
+	f.Float64Var(&v14, "unit-price", 0, "")
+	f.IntVar(&v15, "user-id", 0, "")
 	f.StringVar(&data, "data", "", "request body as JSON object")
 	return cmd
 }
@@ -138,7 +143,7 @@ func newRecurringExpensesCreateCmd(app *cli.App) *cobra.Command {
 func newRecurringExpensesDeleteCmd(app *cli.App) *cobra.Command {
 	cmd := &cobra.Command{
 		Use:   "delete <project-id> <id>",
-		Short: "Wiederkehrende Ausgabe löschen",
+		Short: "Wiederkehrende Zusatzleistung löschen",
 		Args:  cobra.ExactArgs(2),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			path := "/projects/{project_id}/recurring_expenses/{id}"
@@ -156,7 +161,7 @@ func newRecurringExpensesDeleteCmd(app *cli.App) *cobra.Command {
 func newRecurringExpensesGetCmd(app *cli.App) *cobra.Command {
 	cmd := &cobra.Command{
 		Use:   "get <project-id> <id>",
-		Short: "Wiederkehrende Ausgabe abrufen",
+		Short: "Wiederkehrende Zusatzleistung abrufen",
 		Args:  cobra.ExactArgs(2),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			path := "/projects/{project_id}/recurring_expenses/{id}"
@@ -180,7 +185,7 @@ func newRecurringExpensesListCmd(app *cli.App) *cobra.Command {
 	var q5 string
 	cmd := &cobra.Command{
 		Use:   "list <project-id>",
-		Short: "Wiederkehrende Ausgaben auflisten",
+		Short: "Wiederkehrende Zusatzleistungen auflisten",
 		Args:  cobra.ExactArgs(1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			path := "/projects/{project_id}/recurring_expenses"
@@ -284,17 +289,18 @@ func newRecurringExpensesPatchCmd(app *cli.App) *cobra.Command {
 	var v5 string
 	var v6 bool
 	var v7 float64
-	var v8 string
+	var v8 int
 	var v9 string
 	var v10 string
 	var v11 string
-	var v12 float64
+	var v12 string
 	var v13 float64
-	var v14 int
+	var v14 float64
+	var v15 int
 	var data string
 	cmd := &cobra.Command{
 		Use:   "patch <project-id> <id>",
-		Short: "Wiederkehrende Ausgabe teilweise aktualisieren",
+		Short: "Wiederkehrende Zusatzleistung teilweise aktualisieren",
 		Args:  cobra.ExactArgs(2),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			path := "/projects/{project_id}/recurring_expenses/{id}"
@@ -328,26 +334,29 @@ func newRecurringExpensesPatchCmd(app *cli.App) *cobra.Command {
 			if cmd.Flags().Changed("quantity") {
 				body["quantity"] = v7
 			}
+			if cmd.Flags().Changed("revenue-category-id") {
+				body["revenue_category_id"] = v8
+			}
 			if cmd.Flags().Changed("service-period-direction") {
-				body["service_period_direction"] = v8
+				body["service_period_direction"] = v9
 			}
 			if cmd.Flags().Changed("start-date") {
-				body["start_date"] = v9
+				body["start_date"] = v10
 			}
 			if cmd.Flags().Changed("title") {
-				body["title"] = v10
+				body["title"] = v11
 			}
 			if cmd.Flags().Changed("unit") {
-				body["unit"] = v11
+				body["unit"] = v12
 			}
 			if cmd.Flags().Changed("unit-cost") {
-				body["unit_cost"] = v12
+				body["unit_cost"] = v13
 			}
 			if cmd.Flags().Changed("unit-price") {
-				body["unit_price"] = v13
+				body["unit_price"] = v14
 			}
 			if cmd.Flags().Changed("user-id") {
-				body["user_id"] = v14
+				body["user_id"] = v15
 			}
 			raw, err := cli.EncodeBody(body)
 			if err != nil {
@@ -369,13 +378,14 @@ func newRecurringExpensesPatchCmd(app *cli.App) *cobra.Command {
 	f.StringVar(&v5, "period", "", "")
 	f.BoolVar(&v6, "purchase-assignment-locked", false, "")
 	f.Float64Var(&v7, "quantity", 0, "")
-	f.StringVar(&v8, "service-period-direction", "", "")
-	f.StringVar(&v9, "start-date", "", "")
-	f.StringVar(&v10, "title", "", "")
-	f.StringVar(&v11, "unit", "", "")
-	f.Float64Var(&v12, "unit-cost", 0, "")
-	f.Float64Var(&v13, "unit-price", 0, "")
-	f.IntVar(&v14, "user-id", 0, "")
+	f.IntVar(&v8, "revenue-category-id", 0, "")
+	f.StringVar(&v9, "service-period-direction", "", "")
+	f.StringVar(&v10, "start-date", "", "")
+	f.StringVar(&v11, "title", "", "")
+	f.StringVar(&v12, "unit", "", "")
+	f.Float64Var(&v13, "unit-cost", 0, "")
+	f.Float64Var(&v14, "unit-price", 0, "")
+	f.IntVar(&v15, "user-id", 0, "")
 	f.StringVar(&data, "data", "", "request body as JSON object")
 	return cmd
 }
@@ -407,17 +417,18 @@ func newRecurringExpensesUpdateCmd(app *cli.App) *cobra.Command {
 	var v5 string
 	var v6 bool
 	var v7 float64
-	var v8 string
+	var v8 int
 	var v9 string
 	var v10 string
 	var v11 string
-	var v12 float64
+	var v12 string
 	var v13 float64
-	var v14 int
+	var v14 float64
+	var v15 int
 	var data string
 	cmd := &cobra.Command{
 		Use:   "update <project-id> <id>",
-		Short: "Wiederkehrende Ausgabe aktualisieren",
+		Short: "Wiederkehrende Zusatzleistung aktualisieren",
 		Args:  cobra.ExactArgs(2),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			path := "/projects/{project_id}/recurring_expenses/{id}"
@@ -451,26 +462,29 @@ func newRecurringExpensesUpdateCmd(app *cli.App) *cobra.Command {
 			if cmd.Flags().Changed("quantity") {
 				body["quantity"] = v7
 			}
+			if cmd.Flags().Changed("revenue-category-id") {
+				body["revenue_category_id"] = v8
+			}
 			if cmd.Flags().Changed("service-period-direction") {
-				body["service_period_direction"] = v8
+				body["service_period_direction"] = v9
 			}
 			if cmd.Flags().Changed("start-date") {
-				body["start_date"] = v9
+				body["start_date"] = v10
 			}
 			if cmd.Flags().Changed("title") {
-				body["title"] = v10
+				body["title"] = v11
 			}
 			if cmd.Flags().Changed("unit") {
-				body["unit"] = v11
+				body["unit"] = v12
 			}
 			if cmd.Flags().Changed("unit-cost") {
-				body["unit_cost"] = v12
+				body["unit_cost"] = v13
 			}
 			if cmd.Flags().Changed("unit-price") {
-				body["unit_price"] = v13
+				body["unit_price"] = v14
 			}
 			if cmd.Flags().Changed("user-id") {
-				body["user_id"] = v14
+				body["user_id"] = v15
 			}
 			raw, err := cli.EncodeBody(body)
 			if err != nil {
@@ -492,13 +506,14 @@ func newRecurringExpensesUpdateCmd(app *cli.App) *cobra.Command {
 	f.StringVar(&v5, "period", "", "")
 	f.BoolVar(&v6, "purchase-assignment-locked", false, "")
 	f.Float64Var(&v7, "quantity", 0, "")
-	f.StringVar(&v8, "service-period-direction", "", "")
-	f.StringVar(&v9, "start-date", "", "")
-	f.StringVar(&v10, "title", "", "")
-	f.StringVar(&v11, "unit", "", "")
-	f.Float64Var(&v12, "unit-cost", 0, "")
-	f.Float64Var(&v13, "unit-price", 0, "")
-	f.IntVar(&v14, "user-id", 0, "")
+	f.IntVar(&v8, "revenue-category-id", 0, "")
+	f.StringVar(&v9, "service-period-direction", "", "")
+	f.StringVar(&v10, "start-date", "", "")
+	f.StringVar(&v11, "title", "", "")
+	f.StringVar(&v12, "unit", "", "")
+	f.Float64Var(&v13, "unit-cost", 0, "")
+	f.Float64Var(&v14, "unit-price", 0, "")
+	f.IntVar(&v15, "user-id", 0, "")
 	f.StringVar(&data, "data", "", "request body as JSON object")
 	return cmd
 }

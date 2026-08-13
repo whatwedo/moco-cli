@@ -16,7 +16,7 @@ import (
 func newProjectPaymentSchedulesCmd(app *cli.App) *cobra.Command {
 	cmd := &cobra.Command{
 		Use:   "project-payment-schedules",
-		Short: "Abrechnungspläne verwalten",
+		Short: "Geplante Abrechnungen verwalten",
 	}
 	cmd.AddCommand(
 		newProjectPaymentSchedulesCreateCmd(app),
@@ -40,7 +40,7 @@ func newProjectPaymentSchedulesCreateCmd(app *cli.App) *cobra.Command {
 	var data string
 	cmd := &cobra.Command{
 		Use:   "create <project-id>",
-		Short: "Abrechnungsplan erstellen",
+		Short: "Geplante Abrechnung erstellen",
 		Args:  cobra.ExactArgs(1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			path := "/projects/{project_id}/payment_schedules"
@@ -92,7 +92,7 @@ func newProjectPaymentSchedulesCreateCmd(app *cli.App) *cobra.Command {
 func newProjectPaymentSchedulesDeleteCmd(app *cli.App) *cobra.Command {
 	cmd := &cobra.Command{
 		Use:   "delete <project-id> <id>",
-		Short: "Abrechnungsplan löschen",
+		Short: "Geplante Abrechnung löschen",
 		Args:  cobra.ExactArgs(2),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			path := "/projects/{project_id}/payment_schedules/{id}"
@@ -110,7 +110,7 @@ func newProjectPaymentSchedulesDeleteCmd(app *cli.App) *cobra.Command {
 func newProjectPaymentSchedulesGetCmd(app *cli.App) *cobra.Command {
 	cmd := &cobra.Command{
 		Use:   "get <project-id> <id>",
-		Short: "Abrechnungsplan abrufen",
+		Short: "Geplante Abrechnung abrufen",
 		Args:  cobra.ExactArgs(2),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			path := "/projects/{project_id}/payment_schedules/{id}"
@@ -136,7 +136,7 @@ func newProjectPaymentSchedulesListCmd(app *cli.App) *cobra.Command {
 	var q7 string
 	cmd := &cobra.Command{
 		Use:   "list <project-id>",
-		Short: "Abrechnungspläne auflisten",
+		Short: "Geplante Abrechnungen auflisten",
 		Args:  cobra.ExactArgs(1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			path := "/projects/{project_id}/payment_schedules"
@@ -259,7 +259,7 @@ func newProjectPaymentSchedulesPatchCmd(app *cli.App) *cobra.Command {
 	var data string
 	cmd := &cobra.Command{
 		Use:   "patch <project-id> <id>",
-		Short: "Abrechnungsplan teilweise aktualisieren",
+		Short: "Geplante Abrechnung teilweise aktualisieren",
 		Args:  cobra.ExactArgs(2),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			path := "/projects/{project_id}/payment_schedules/{id}"
@@ -319,7 +319,7 @@ func newProjectPaymentSchedulesUpdateCmd(app *cli.App) *cobra.Command {
 	var data string
 	cmd := &cobra.Command{
 		Use:   "update <project-id> <id>",
-		Short: "Abrechnungsplan aktualisieren",
+		Short: "Geplante Abrechnung aktualisieren",
 		Args:  cobra.ExactArgs(2),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			path := "/projects/{project_id}/payment_schedules/{id}"

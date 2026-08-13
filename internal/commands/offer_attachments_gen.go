@@ -15,7 +15,7 @@ import (
 func newOfferAttachmentsCmd(app *cli.App) *cobra.Command {
 	cmd := &cobra.Command{
 		Use:   "offer-attachments",
-		Short: "Angebotsanhänge verwalten",
+		Short: "Anhänge verwalten",
 	}
 	cmd.AddCommand(
 		newOfferAttachmentsCreateCmd(app),
@@ -29,7 +29,7 @@ func newOfferAttachmentsCreateCmd(app *cli.App) *cobra.Command {
 	var data string
 	cmd := &cobra.Command{
 		Use:   "create <offer-id>",
-		Short: "Angebotsanhang erstellen",
+		Short: "Anhang erstellen",
 		Args:  cobra.ExactArgs(1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			path := "/offers/{offer_id}/attachments"
@@ -57,7 +57,7 @@ func newOfferAttachmentsCreateCmd(app *cli.App) *cobra.Command {
 func newOfferAttachmentsDeleteCmd(app *cli.App) *cobra.Command {
 	cmd := &cobra.Command{
 		Use:   "delete <offer-id> <id>",
-		Short: "Angebotsanhang löschen",
+		Short: "Anhang löschen",
 		Args:  cobra.ExactArgs(2),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			path := "/offers/{offer_id}/attachments/{id}"
@@ -75,7 +75,7 @@ func newOfferAttachmentsDeleteCmd(app *cli.App) *cobra.Command {
 func newOfferAttachmentsListCmd(app *cli.App) *cobra.Command {
 	cmd := &cobra.Command{
 		Use:   "list <offer-id>",
-		Short: "Angebotsanhänge auflisten",
+		Short: "Anhänge auflisten",
 		Args:  cobra.ExactArgs(1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			path := "/offers/{offer_id}/attachments"

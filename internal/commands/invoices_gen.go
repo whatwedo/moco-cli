@@ -59,7 +59,8 @@ func newInvoicesCreateCmd(app *cli.App) *cobra.Command {
 	var v21 string
 	var v22 float64
 	var v23 string
-	var v24 bool
+	var v24 int
+	var v25 bool
 	var data string
 	cmd := &cobra.Command{
 		Use:   "create",
@@ -143,8 +144,11 @@ func newInvoicesCreateCmd(app *cli.App) *cobra.Command {
 			if cmd.Flags().Changed("title") {
 				body["title"] = v23
 			}
+			if cmd.Flags().Changed("vat-code-id") {
+				body["vat_code_id"] = v24
+			}
 			if cmd.Flags().Changed("without-letter-paper") {
-				body["without_letter_paper"] = v24
+				body["without_letter_paper"] = v25
 			}
 			raw, err := cli.EncodeBody(body)
 			if err != nil {
@@ -179,10 +183,11 @@ func newInvoicesCreateCmd(app *cli.App) *cobra.Command {
 	f.StringVar(&v18, "salutation", "", "Salutation text. Supports template variables such as `{salutation}`, `{recipient}`, `{company_name}`, `{date}`, `{due_date}`, and more.")
 	f.StringVar(&v19, "service-period-from", "", "Service period start. Use together with `service_period_to`.")
 	f.StringVar(&v20, "service-period-to", "", "Service period end. Use together with `service_period_from`.")
-	f.StringVar(&v21, "status", "", "Initial invoice status.")
-	f.Float64Var(&v22, "tax", 0, "VAT/tax percentage.")
+	f.StringVar(&v21, "status", "", "Initial invoice status. When omitted, the backend applies its default behavior.")
+	f.Float64Var(&v22, "tax", 0, "Deprecated. VAT/tax percentage. Use `vat_code_id` instead. When `vat_code_id` is provided, this field is ignored.")
 	f.StringVar(&v23, "title", "", "Invoice title.")
-	f.BoolVar(&v24, "without-letter-paper", false, "When set to `true`, creates the invoice without letter paper (white). This takes precedence over `letter_paper_id`.")
+	f.IntVar(&v24, "vat-code-id", 0, "VAT code ID for this invoice. Takes precedence over the deprecated `tax` field. Available VAT codes can be fetched via `GET /api/v1/vat_code_sales`.")
+	f.BoolVar(&v25, "without-letter-paper", false, "When set to `true`, creates the invoice without letter paper (white). This takes precedence over `letter_paper_id`.")
 	f.StringVar(&data, "data", "", "request body as JSON object")
 	return cmd
 }
@@ -256,7 +261,7 @@ func newInvoicesGetCmd(app *cli.App) *cobra.Command {
 }
 
 func newInvoicesListCmd(app *cli.App) *cobra.Command {
-	var q0 int
+	var q0 string
 	var q1 string
 	var q2 string
 	var q3 string
@@ -266,7 +271,7 @@ func newInvoicesListCmd(app *cli.App) *cobra.Command {
 	var q7 bool
 	var q8 int
 	var q9 int
-	var q10 int
+	var q10 string
 	var q11 string
 	var q12 string
 	var q13 string
@@ -343,7 +348,7 @@ func newInvoicesListCmd(app *cli.App) *cobra.Command {
 		},
 	}
 	f := cmd.Flags()
-	f.IntVar(&q0, "company-id", 0, "")
+	f.StringVar(&q0, "company-id", "", "Single ID or comma-separated list.")
 	f.StringVar(&q1, "custom-properties", "", "Filter by custom field values.")
 	f.StringVar(&q2, "date-from", "", "Invoice date range start. Format: YYYY-MM-DD (e.g. `2026-01-01`).")
 	f.StringVar(&q3, "date-to", "", "Invoice date range end. Format: YYYY-MM-DD (e.g. `2026-01-31`).")
@@ -353,7 +358,7 @@ func newInvoicesListCmd(app *cli.App) *cobra.Command {
 	f.BoolVar(&q7, "not-booked", false, "")
 	f.IntVar(&q8, "page", 0, "Page number, starting at 1.")
 	f.IntVar(&q9, "per-page", 0, "Page size.")
-	f.IntVar(&q10, "project-id", 0, "")
+	f.StringVar(&q10, "project-id", "", "Single ID or comma-separated list.")
 	f.StringVar(&q11, "service-period-from", "", "Service period start. Format: YYYY-MM-DD (e.g. `2026-01-01`).")
 	f.StringVar(&q12, "service-period-to", "", "Service period end. Format: YYYY-MM-DD (e.g. `2026-01-31`).")
 	f.StringVar(&q13, "sort-by", "", "Field and optional direction, e.g. `title desc`.")

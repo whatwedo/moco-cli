@@ -154,7 +154,7 @@ func newInvoicePaymentsListCmd(app *cli.App) *cobra.Command {
 	var q0 string
 	var q1 string
 	var q2 string
-	var q3 int
+	var q3 string
 	var q4 int
 	var q5 int
 	var q6 string
@@ -197,7 +197,7 @@ func newInvoicePaymentsListCmd(app *cli.App) *cobra.Command {
 	f.StringVar(&q0, "date-from", "", "Payment date range start. Format: YYYY-MM-DD (e.g. `2026-01-01`).")
 	f.StringVar(&q1, "date-to", "", "Payment date range end. Format: YYYY-MM-DD (e.g. `2026-01-31`).")
 	f.StringVar(&q2, "ids", "", "Comma-separated IDs.")
-	f.IntVar(&q3, "invoice-id", 0, "")
+	f.StringVar(&q3, "invoice-id", "", "Single ID or comma-separated list.")
 	f.IntVar(&q4, "page", 0, "Page number, starting at 1.")
 	f.IntVar(&q5, "per-page", 0, "Page size.")
 	f.StringVar(&q6, "updated-after", "", "ISO 8601 UTC timestamp (e.g. `2026-01-31T14:30:00Z`).")
