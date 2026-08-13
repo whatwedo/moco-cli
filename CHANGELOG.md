@@ -7,6 +7,22 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.2.0] - 2026-08-13
+
+### Added
+
+- Command groups for approvals, offer confirmations, planned purchases, revenue
+  categories, todos and user absence requests.
+
+### Changed
+
+- Flags and German help texts across the existing command groups now follow the
+  current MOCO API v1 spec.
+
+### Removed
+
+- `moco purchase-orders` — MOCO dropped the endpoint.
+
 ## [0.1.1] - 2026-06-07
 
 ### Added
@@ -31,6 +47,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - JSON output (`--output json|raw`), suitable for piping into `jq`.
 - German command help texts.
 
-[Unreleased]: https://github.com/whatwedo/moco-cli/compare/v0.1.1...HEAD
+[Unreleased]: https://github.com/whatwedo/moco-cli/compare/v0.2.0...HEAD
+[0.2.0]: https://github.com/whatwedo/moco-cli/compare/v0.1.1...v0.2.0
 [0.1.1]: https://github.com/whatwedo/moco-cli/compare/v0.1.0...v0.1.1
 [0.1.0]: https://github.com/whatwedo/moco-cli/releases/tag/v0.1.0
