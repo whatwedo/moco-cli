@@ -1,3 +1,4 @@
 /moco
 /dist/
 *.out
+/.claude/settings.local.json
